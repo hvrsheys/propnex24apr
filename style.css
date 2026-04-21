@@ -993,6 +993,10 @@ body {
 }
 
 @media (max-width: 640px) {
+    .deco-line {
+        display: none;
+    }
+
     .page-shell {
         padding: 24px 10px 28px;
     }
@@ -1169,7 +1173,7 @@ body {
 
     .program-list {
         gap: 8px;
-        max-width: 100%;
+        max-width: 80%;
     }
 
     .program-item {
@@ -1190,6 +1194,13 @@ body {
 
     .program-actions {
         margin-top: 14px;
+    }
+
+    .program-actions .secondary-btn {
+        min-height: 32px;
+        padding: 7px 12px;
+        font-size: 0.64rem;
+        letter-spacing: 0.1em;
     }
 
     .page-footer {
@@ -1292,12 +1303,22 @@ body {
         padding: 8px 10px;
     }
 
+    .program-list {
+        max-width: 78%;
+    }
+
     .program-title {
         font-size: 0.9rem;
     }
 
     .program-time {
         font-size: 0.7rem;
+    }
+
+    .program-actions .secondary-btn {
+        min-height: 30px;
+        padding: 6px 10px;
+        font-size: 0.6rem;
     }
 
     .minimal-btn {
