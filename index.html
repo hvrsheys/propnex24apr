@@ -76,21 +76,33 @@
 
                 <main class="main-layout">
                     <section class="control-panel">
-                        <div class="panel-card">
-                            <h2>Guest Details</h2>
-                            <p class="panel-copy">Your selected name is shown below. Use reset to return to the search screen.</p>
+                        <div id="guestPanel" class="panel-card panel-card-guest">
+                            <button
+                                type="button"
+                                id="guestPanelToggle"
+                                class="panel-toggle"
+                                aria-expanded="true"
+                                aria-controls="guestPanelBody"
+                            >
+                                <span>Guest Details</span>
+                                <span class="panel-toggle-icon" aria-hidden="true"></span>
+                            </button>
 
-                            <div id="selectedCard" class="selected-card" hidden>
-                                <p class="selected-label">Selected Guest</p>
-                                <p id="selectedName" class="selected-name"></p>
-                                <p id="selectedTable" class="selected-table"></p>
+                            <div id="guestPanelBody" class="panel-card-body">
+                                <p class="panel-copy">Your selected name is shown below. Use reset to return to the search screen.</p>
+
+                                <div id="selectedCard" class="selected-card" hidden>
+                                    <p class="selected-label">Selected Guest</p>
+                                    <p id="selectedName" class="selected-name"></p>
+                                    <p id="selectedTable" class="selected-table"></p>
+                                </div>
+
+                                <div class="button-row button-row-single">
+                                    <button type="button" id="backButton" class="secondary-btn">Reset</button>
+                                </div>
+
+                                <p id="mapStatusText" class="status-text"></p>
                             </div>
-
-                            <div class="button-row button-row-single">
-                                <button type="button" id="backButton" class="secondary-btn">Reset</button>
-                            </div>
-
-                            <p id="mapStatusText" class="status-text"></p>
                         </div>
                     </section>
 
@@ -139,6 +151,10 @@
                             </div>
 
                             <div id="tableToast" class="table-toast" hidden></div>
+                        </div>
+
+                        <div class="map-actions">
+                            <button type="button" id="mapNextButton" class="secondary-btn minimal-btn" hidden>To Program Flow</button>
                         </div>
                     </section>
                 </main>

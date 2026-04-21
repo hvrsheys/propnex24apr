@@ -227,6 +227,52 @@ body {
     color: var(--gold-soft);
 }
 
+.panel-card-guest {
+    padding: 20px 18px;
+}
+
+.panel-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--gold-soft);
+    font-family: "Cinzel", serif;
+    font-size: 1.6rem;
+    text-align: left;
+}
+
+.panel-toggle-icon {
+    display: none;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.panel-toggle-icon::before,
+.panel-toggle-icon::after {
+    content: "";
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 14px;
+    height: 1.5px;
+    background: var(--gold-soft);
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.panel-toggle-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.panel-card-body {
+    margin-top: 10px;
+}
+
 .panel-copy {
     margin: 0 0 18px;
     color: var(--text-soft);
@@ -757,6 +803,22 @@ body {
     border-color: rgba(214, 182, 91, 0.2);
 }
 
+.map-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 14px;
+}
+
+.minimal-btn {
+    min-height: 36px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(214, 182, 91, 0.22);
+}
+
 .program-head {
     position: relative;
     z-index: 1;
@@ -878,6 +940,14 @@ body {
 }
 
 @media (max-width: 820px) {
+    .main-layout {
+        gap: 14px;
+    }
+
+    .hall-panel {
+        order: -1;
+    }
+
     .hall-map {
         min-height: 920px;
     }
@@ -914,7 +984,7 @@ body {
     }
 
     .hero h1 {
-        font-size: clamp(2.1rem, 12vw, 3.5rem);
+        font-size: clamp(1.9rem, 10vw, 3rem);
         line-height: 0.96;
     }
 
@@ -929,23 +999,44 @@ body {
         margin-top: 14px;
     }
 
-    .panel-card {
-        padding: 20px 16px;
-    }
-
     .panel-card-search {
         width: min(100%, 420px);
         padding: 26px 18px 20px;
     }
 
     .panel-card h2 {
-        font-size: 1.45rem;
+        font-size: 1.3rem;
     }
 
     .panel-copy {
         margin-bottom: 14px;
         font-size: 0.98rem;
         line-height: 1.45;
+    }
+
+    .panel-card-guest {
+        padding: 14px 14px 12px;
+    }
+
+    .panel-toggle {
+        font-size: 1.05rem;
+        letter-spacing: 0.06em;
+    }
+
+    .panel-toggle-icon {
+        display: block;
+    }
+
+    .panel-card-guest.collapsed .panel-card-body {
+        display: none;
+    }
+
+    .panel-card-guest.collapsed .panel-toggle-icon::after {
+        opacity: 1;
+    }
+
+    .panel-card-guest:not(.collapsed) .panel-toggle-icon::after {
+        opacity: 0;
     }
 
     #searchInput {
@@ -1024,8 +1115,8 @@ body {
     }
 
     .selected-card {
-        margin-top: 14px;
-        padding: 14px 14px 12px;
+        margin-top: 10px;
+        padding: 12px 12px 10px;
         border-radius: 18px;
     }
 
@@ -1041,6 +1132,10 @@ body {
     .error-text {
         margin-top: 10px;
         font-size: 0.88rem;
+    }
+
+    .map-actions {
+        margin-top: 10px;
     }
 
     .admin-row {
@@ -1105,7 +1200,7 @@ body {
     }
 
     .hero h1 {
-        font-size: clamp(1.92rem, 11.5vw, 3rem);
+        font-size: clamp(1.72rem, 10.2vw, 2.5rem);
     }
 
     .hero-copy {
@@ -1122,7 +1217,11 @@ body {
     }
 
     .panel-card h2 {
-        font-size: 1.25rem;
+        font-size: 1.15rem;
+    }
+
+    .panel-toggle {
+        font-size: 0.95rem;
     }
 
     .hall-map {
@@ -1178,5 +1277,11 @@ body {
 
     .program-time {
         font-size: 0.7rem;
+    }
+
+    .minimal-btn {
+        min-height: 34px;
+        padding: 7px 12px;
+        font-size: 0.68rem;
     }
 }

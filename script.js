@@ -83,6 +83,9 @@ function cacheElements() {
     elements.searchForm = document.getElementById("searchForm");
     elements.searchInput = document.getElementById("searchInput");
     elements.suggestions = document.getElementById("suggestions");
+    elements.guestPanel = document.getElementById("guestPanel");
+    elements.guestPanelToggle = document.getElementById("guestPanelToggle");
+    elements.guestPanelBody = document.getElementById("guestPanelBody");
     elements.backButton = document.getElementById("backButton");
     elements.statusText = document.getElementById("statusText");
     elements.mapStatusText = document.getElementById("mapStatusText");
@@ -103,9 +106,25 @@ function cacheElements() {
     elements.hallMap = document.getElementById("hallMap");
     elements.aisle = document.querySelector(".aisle");
     elements.entranceMarker = document.getElementById("entranceMarker");
+    elements.mapNextButton = document.getElementById("mapNextButton");
     elements.walker = document.getElementById("walker");
     elements.tableToast = document.getElementById("tableToast");
     elements.tables = Array.from(document.querySelectorAll(".table"));
+}
+
+function isCompactMapLayout() {
+    return window.innerWidth <= 820;
+}
+
+function setGuestPanelCollapsed(collapsed) {
+    elements.guestPanel.classList.toggle("collapsed", collapsed);
+    elements.guestPanelToggle.setAttribute("aria-expanded", String(!collapsed));
+}
+
+function syncGuestPanelLayout() {
+    if (!isCompactMapLayout()) {
+        setGuestPanelCollapsed(false);
+    }
 }
 
 function getTableElement(tableName) {
@@ -252,11 +271,13 @@ function setSelectedGuest(attendee) {
     elements.selectedCard.hidden = false;
     elements.selectedName.textContent = attendee.name;
     elements.selectedTable.textContent = `Assigned to Table ${attendee.table}`;
+    elements.mapNextButton.hidden = true;
     elements.searchView.hidden = true;
     elements.searchView.classList.remove("active");
     elements.mapView.hidden = false;
     elements.mapView.classList.add("active");
     elements.mapStatusText.textContent = `${attendee.name} is on the way to Table ${attendee.table}`;
+    setGuestPanelCollapsed(isCompactMapLayout());
 }
 
 function clearActiveTable() {
@@ -377,6 +398,7 @@ function resetView() {
     elements.selectedCard.hidden = true;
     state.activeGuest = null;
     resetWalkerPosition();
+    elements.mapNextButton.hidden = true;
     elements.mapView.hidden = true;
     elements.mapView.classList.remove("active");
     elements.programView.hidden = true;
@@ -384,6 +406,7 @@ function resetView() {
     elements.searchView.hidden = false;
     elements.searchView.classList.add("active");
     elements.mapStatusText.textContent = "";
+    setGuestPanelCollapsed(false);
 }
 
 function initCandlelight() {
@@ -568,6 +591,7 @@ function animateWalkerToTable(tableElement, tableName) {
         tableElement.classList.add("active");
         showToast(tableName, target);
         elements.mapStatusText.textContent = `${state.activeGuest.name} is seated at Table ${tableName}`;
+        elements.mapNextButton.hidden = false;
 
         if (state.activeGuest && hasAttendanceRecord(state.activeGuest)) {
             revealProgramFlow();
@@ -652,12 +676,34 @@ function bindEvents() {
         resetView();
     });
 
+    elements.guestPanelToggle.addEventListener("click", () => {
+        if (!isCompactMapLayout()) {
+            return;
+        }
+
+        const isCollapsed = elements.guestPanel.classList.contains("collapsed");
+        setGuestPanelCollapsed(!isCollapsed);
+    });
+
     elements.programBackButton.addEventListener("click", () => {
         elements.searchInput.value = "";
         elements.suggestions.classList.remove("visible");
         elements.suggestions.innerHTML = "";
         elements.statusText.textContent = "";
         resetView();
+    });
+
+    elements.mapNextButton.addEventListener("click", () => {
+        if (!state.activeGuest) {
+            return;
+        }
+
+        if (hasAttendanceRecord(state.activeGuest)) {
+            revealProgramFlow();
+            return;
+        }
+
+        showAttendanceModal();
     });
 
     elements.confirmAttendanceButton.addEventListener("click", () => {
@@ -703,6 +749,8 @@ function bindEvents() {
     });
 
     window.addEventListener("resize", () => {
+        syncGuestPanelLayout();
+
         if (elements.hallMap.hidden) {
             return;
         }
@@ -739,6 +787,7 @@ function init() {
     elements.attendanceModal.hidden = true;
     elements.mapStatusText.textContent = "";
     elements.statusText.textContent = "";
+    syncGuestPanelLayout();
 }
 
 document.addEventListener("DOMContentLoaded", init);
