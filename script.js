@@ -278,16 +278,22 @@ function showToast(tableName, targetPoint) {
     const maxCenter = hallRect.width - sidePadding - halfWidth;
     const clampedCenter = Math.min(Math.max(targetPoint.x, minCenter), maxCenter);
     const shiftX = clampedCenter - targetPoint.x;
+    const shouldPlaceBelow = targetPoint.y < toastRect.height + 78;
 
     elements.hallMap.style.setProperty("--toast-x", `${targetPoint.x}px`);
-    elements.hallMap.style.setProperty("--toast-y", `${targetPoint.y - 18}px`);
+    elements.hallMap.style.setProperty(
+        "--toast-y",
+        shouldPlaceBelow ? `${targetPoint.y + 18}px` : `${targetPoint.y - 18}px`
+    );
     elements.hallMap.style.setProperty("--toast-shift-x", `${shiftX}px`);
+    elements.tableToast.dataset.placement = shouldPlaceBelow ? "below" : "above";
 }
 
 function hideToast() {
     elements.tableToast.hidden = true;
     elements.tableToast.textContent = "";
     elements.hallMap.style.setProperty("--toast-shift-x", "0px");
+    delete elements.tableToast.dataset.placement;
 }
 
 function hideAttendanceModal() {
