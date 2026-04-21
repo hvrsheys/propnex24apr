@@ -87,6 +87,7 @@ function cacheElements() {
     elements.guestPanelToggle = document.getElementById("guestPanelToggle");
     elements.guestPanelBody = document.getElementById("guestPanelBody");
     elements.backButton = document.getElementById("backButton");
+    elements.mobileBackButton = document.getElementById("mobileBackButton");
     elements.statusText = document.getElementById("statusText");
     elements.mapStatusText = document.getElementById("mapStatusText");
     elements.selectedCard = document.getElementById("selectedCard");
@@ -668,13 +669,16 @@ function bindEvents() {
         }
     });
 
-    elements.backButton.addEventListener("click", () => {
+    const handleBackToSearch = () => {
         elements.searchInput.value = "";
         elements.suggestions.classList.remove("visible");
         elements.suggestions.innerHTML = "";
         elements.statusText.textContent = "";
         resetView();
-    });
+    };
+
+    elements.backButton.addEventListener("click", handleBackToSearch);
+    elements.mobileBackButton.addEventListener("click", handleBackToSearch);
 
     elements.guestPanelToggle.addEventListener("click", () => {
         if (!isCompactMapLayout()) {

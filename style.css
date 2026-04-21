@@ -805,18 +805,47 @@ body {
 
 .map-actions {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     margin-top: 14px;
 }
 
 .minimal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     min-height: 36px;
-    padding: 8px 14px;
+    padding: 8px 14px 8px 16px;
     border-radius: 999px;
     font-size: 0.72rem;
     letter-spacing: 0.12em;
     background: rgba(255, 255, 255, 0.02);
     border-color: rgba(214, 182, 91, 0.22);
+}
+
+.minimal-btn-back {
+    display: none;
+}
+
+.minimal-btn::after {
+    content: "\2192";
+    font-size: 0.96rem;
+    line-height: 1;
+    color: var(--gold-soft);
+    transform: translateX(0);
+    transition: transform 0.2s ease;
+}
+
+.minimal-btn:hover::after {
+    transform: translateX(2px);
+}
+
+.minimal-btn-back::after {
+    content: "\2190";
+    order: -1;
+}
+
+.minimal-btn-back:hover::after {
+    transform: translateX(-2px);
 }
 
 .program-head {
@@ -1015,28 +1044,7 @@ body {
     }
 
     .panel-card-guest {
-        padding: 14px 14px 12px;
-    }
-
-    .panel-toggle {
-        font-size: 1.05rem;
-        letter-spacing: 0.06em;
-    }
-
-    .panel-toggle-icon {
-        display: block;
-    }
-
-    .panel-card-guest.collapsed .panel-card-body {
         display: none;
-    }
-
-    .panel-card-guest.collapsed .panel-toggle-icon::after {
-        opacity: 1;
-    }
-
-    .panel-card-guest:not(.collapsed) .panel-toggle-icon::after {
-        opacity: 0;
     }
 
     #searchInput {
@@ -1135,7 +1143,18 @@ body {
     }
 
     .map-actions {
+        justify-content: space-between;
+        gap: 12px;
         margin-top: 10px;
+    }
+
+    .minimal-btn-back {
+        display: inline-flex;
+    }
+
+    .map-actions .minimal-btn {
+        flex: 1 1 0;
+        justify-content: center;
     }
 
     .admin-row {
@@ -1283,5 +1302,9 @@ body {
         min-height: 34px;
         padding: 7px 12px;
         font-size: 0.68rem;
+    }
+
+    .map-actions {
+        gap: 10px;
     }
 }
