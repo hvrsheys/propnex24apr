@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propnex Sarawak Gala Dinner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Cinzel:wght@500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-attendance-endpoint="https://script.google.com/macros/s/AKfycbxLCxBCH-fvgxuQLzbBGWGqEdaURG-yqfFvPSVuDOhmMhTHxP7vJ7SPEL3k4t6vL6h5/exec">
+    <div class="bg-layer" aria-hidden="true">
+        <canvas id="candleCanvas"></canvas>
+        <div class="vignette"></div>
+    </div>
+    <div class="deco-line top-left"></div>
+    <div class="deco-line bottom-right"></div>
+
+    <div class="app-shell">
+        <section id="searchView" class="view view-search active">
+            <div class="page-shell">
+                <header class="hero">
+                    <div class="hero-mark">&#10022;</div>
+                    <p class="eyebrow">An Evening of Celebration</p>
+                    <h1>PropNex Sarawak</h1>
+                    <p class="hero-copy">Gala Dinner &nbsp;&middot;&nbsp; Award Convention &nbsp;&middot;&nbsp; 2025</p>
+                    <div class="hero-divider"><span></span><span class="hero-dot">&#9670;</span><span></span></div>
+                </header>
+
+                <main class="search-layout">
+                    <section class="control-panel">
+                        <div class="panel-card panel-card-search">
+                            <h2>Find Your Seat</h2>
+                            <p class="panel-copy">Enter your name below to discover your table seating for the evening.</p>
+
+                            <form id="searchForm" class="search-form" novalidate>
+                                <label class="sr-only" for="searchInput">Your Name</label>
+                                <div class="search-stack">
+                                    <input
+                                        id="searchInput"
+                                        type="search"
+                                        placeholder="Your Name"
+                                        autocomplete="off"
+                                        spellcheck="false"
+                                    >
+                                    <div id="suggestions" class="suggestions" role="listbox" aria-label="Suggested attendees"></div>
+                                </div>
+                                <div class="button-row">
+                                    <button type="submit" class="primary-btn">Find My Seat</button>
+                                </div>
+                            </form>
+
+                            <p id="statusText" class="status-text"></p>
+                            <p id="errorText" class="error-text" role="alert"></p>
+                        </div>
+                    </section>
+                </main>
+
+                <footer class="page-footer">
+                    <div class="hero-divider"><span></span><span class="hero-dot">&#9670;</span><span></span></div>
+                    <p>&copy; 2025 PropNex Sarawak &nbsp;&middot;&nbsp; All Rights Reserved</p>
+                    <p class="page-footer-note">For assistance, please approach our registration desk.</p>
+                </footer>
+
+            </div>
+        </section>
+
+        <section id="mapView" class="view view-map" hidden>
+            <div class="page-shell">
+                <header class="hero hero-map">
+                    <p class="eyebrow">Seat Map</p>
+                    <h1>Walk To Your Table</h1>
+                    <p class="hero-copy">Follow the red carpet path from the entrance to your assigned seat area.</p>
+                </header>
+
+                <main class="main-layout">
+                    <section class="control-panel">
+                        <div class="panel-card">
+                            <h2>Guest Details</h2>
+                            <p class="panel-copy">Your selected name is shown below. Use reset to return to the search screen.</p>
+
+                            <div id="selectedCard" class="selected-card" hidden>
+                                <p class="selected-label">Selected Guest</p>
+                                <p id="selectedName" class="selected-name"></p>
+                                <p id="selectedTable" class="selected-table"></p>
+                            </div>
+
+                            <div class="button-row button-row-single">
+                                <button type="button" id="backButton" class="secondary-btn">Reset</button>
+                            </div>
+
+                            <p id="mapStatusText" class="status-text"></p>
+                        </div>
+                    </section>
+
+                    <section class="hall-panel">
+                        <div id="hallMap" class="hall-map">
+                            <div class="stage">Stage</div>
+
+                            <div class="vip-row">
+                                <button class="table table-vip" data-table="VIP" type="button"><span class="table-label">VIP</span></button>
+                            </div>
+
+                            <div class="aisle"></div>
+
+                            <div class="table-grid">
+                                <div class="table-slot outer-left"><button class="table table-standard" data-table="4" type="button"><span class="table-label">Table 4</span></button></div>
+                                <div class="table-slot inner-left"><button class="table table-standard" data-table="3" type="button"><span class="table-label">Table 3</span></button></div>
+                                <div class="table-slot carpet-slot" aria-hidden="true"></div>
+                                <div class="table-slot inner-right"><button class="table table-standard" data-table="2" type="button"><span class="table-label">Table 2</span></button></div>
+                                <div class="table-slot outer-right"><button class="table table-standard" data-table="1" type="button"><span class="table-label">Table 1</span></button></div>
+
+                                <div class="table-slot outer-left"><button class="table table-standard" data-table="8" type="button"><span class="table-label">Table 8</span></button></div>
+                                <div class="table-slot inner-left"><button class="table table-standard" data-table="7" type="button"><span class="table-label">Table 7</span></button></div>
+                                <div class="table-slot carpet-slot" aria-hidden="true"></div>
+                                <div class="table-slot inner-right"><button class="table table-standard" data-table="6" type="button"><span class="table-label">Table 6</span></button></div>
+                                <div class="table-slot outer-right"><button class="table table-standard" data-table="5" type="button"><span class="table-label">Table 5</span></button></div>
+
+                                <div class="table-slot outer-left"><button class="table table-standard" data-table="12" type="button"><span class="table-label">Table 12</span></button></div>
+                                <div class="table-slot inner-left"><button class="table table-standard" data-table="11" type="button"><span class="table-label">Table 11</span></button></div>
+                                <div class="table-slot carpet-slot" aria-hidden="true"></div>
+                                <div class="table-slot inner-right"><button class="table table-standard" data-table="10" type="button"><span class="table-label">Table 10</span></button></div>
+                                <div class="table-slot outer-right"><button class="table table-standard" data-table="9" type="button"><span class="table-label">Table 9</span></button></div>
+
+                                <div class="table-slot outer-left"><button class="table table-standard" data-table="16" type="button"><span class="table-label">Table 16</span></button></div>
+                                <div class="table-slot inner-left"><button class="table table-standard" data-table="15" type="button"><span class="table-label">Table 15</span></button></div>
+                                <div class="table-slot carpet-slot" aria-hidden="true"></div>
+                                <div class="table-slot inner-right"><button class="table table-standard" data-table="14" type="button"><span class="table-label">Table 14</span></button></div>
+                                <div class="table-slot outer-right"><button class="table table-standard" data-table="13" type="button"><span class="table-label">Table 13</span></button></div>
+                            </div>
+
+                            <div id="entranceMarker" class="entrance-marker">
+                                <span class="entrance-pill">Entrance</span>
+                            </div>
+
+                            <div id="walker" class="walker" aria-hidden="true">
+                                <span class="walker-icon">&bull;</span>
+                            </div>
+
+                            <div id="tableToast" class="table-toast" hidden></div>
+                        </div>
+                    </section>
+                </main>
+
+            </div>
+        </section>
+
+        <section id="programView" class="view view-program" hidden>
+            <div class="page-shell">
+                <header class="hero hero-map">
+                    <p class="eyebrow">Evening Schedule</p>
+                    <h1>Program Flow</h1>
+                    <p class="hero-copy">Thank you for confirming your attendance. Here is the evening flow for the event.</p>
+                </header>
+
+                <main>
+                    <section id="programSection" class="program-section">
+                        <div class="program-card">
+                            <div class="program-list">
+                                <article class="program-item">
+                                    <p class="program-time">6PM</p>
+                                    <p class="program-title">Welcome to the Big Night</p>
+                                </article>
+                                <article class="program-item">
+                                    <p class="program-time">7PM</p>
+                                    <p class="program-title">Leader's March In</p>
+                                </article>
+                                <article class="program-item">
+                                    <p class="program-time">7:10PM</p>
+                                    <p class="program-title">Agency Leader Speech</p>
+                                </article>
+                                <article class="program-item">
+                                    <p class="program-time">7:15PM</p>
+                                    <p class="program-title">Appreciation Award For Business Associate</p>
+                                </article>
+                                <article class="program-item">
+                                    <p class="program-time">7:25PM</p>
+                                    <p class="program-title">Dinner Service Begins</p>
+                                </article>
+                                <article class="program-item">
+                                    <p class="program-time">7:30PM</p>
+                                    <p class="program-title">Chinese Lyrical Dance by Catherine Siaw (一梦惊鸿)</p>
+                                </article>
+                                <article class="program-item">
+                                    <p class="program-time">7:45PM</p>
+                                    <p class="program-title">Singing Performance by Jackie Lai &amp; Lily Lai</p>
+                                </article>
+                                <article class="program-item">
+                                    <p class="program-time">8PM</p>
+                                    <p class="program-title">Appreciation to Team Leaders</p>
+                                </article>
+                                <article class="program-item">
+                                    <p class="program-time">8:20PM</p>
+                                    <p class="program-title">Singing Performance by Georgena</p>
+                                </article>
+                                <article class="program-item">
+                                    <p class="program-time">8:25PM</p>
+                                    <p class="program-title">Art Performance (他的儿子)</p>
+                                </article>
+                                <article class="program-item">
+                                    <p class="program-time">8:30PM</p>
+                                    <p class="program-title">Award Ceremony</p>
+                                </article>
+                                <article class="program-item">
+                                    <p class="program-time">8:40PM</p>
+                                    <p class="program-title">Chinese Lyrical Dance by Catherine Siaw (时候)</p>
+                                </article>
+                                <article class="program-item">
+                                    <p class="program-time">8:45PM</p>
+                                    <p class="program-title">Sichuan Face Changing Performance</p>
+                                </article>
+                                <article class="program-item">
+                                    <p class="program-time">9PM</p>
+                                    <p class="program-title">Award Ceremony</p>
+                                </article>
+                                <article class="program-item">
+                                    <p class="program-time">9:25PM</p>
+                                    <p class="program-title">Lucky Draw</p>
+                                </article>
+                                <article class="program-item">
+                                    <p class="program-time">10PM</p>
+                                    <p class="program-title">See You Next Year!</p>
+                                </article>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="program-actions">
+                        <button type="button" id="programBackButton" class="secondary-btn">Back To Search</button>
+                    </div>
+                </main>
+            </div>
+        </section>
+    </div>
+
+    <div id="attendanceModal" class="attendance-modal" hidden>
+        <div class="attendance-dialog" role="dialog" aria-modal="true" aria-labelledby="attendanceTitle">
+            <p class="eyebrow">Attendance Check</p>
+            <h2 id="attendanceTitle">Please Verify You Are Seated</h2>
+            <p id="attendanceMessage" class="panel-copy">Please confirm once you are seated at your assigned table.</p>
+            <div class="button-row attendance-actions">
+                <button type="button" id="confirmAttendanceButton" class="primary-btn">Yes, Proceed to Program Flow</button>
+                <button type="button" id="dismissAttendanceButton" class="secondary-btn">Not Yet</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
