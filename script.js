@@ -686,6 +686,8 @@ function animateWalkerToTable(tableElement, tableName) {
     const firstDuration = 950;
     const secondDuration = 850;
     const totalDuration = firstDuration + secondDuration;
+    const toastLeadMs = 180;
+    let toastShown = false;
     const startTime = performance.now();
 
     function frame(now) {
@@ -706,6 +708,11 @@ function animateWalkerToTable(tableElement, tableName) {
 
         positionWalker(point);
 
+        if (!toastShown && elapsed >= totalDuration - toastLeadMs) {
+            showToast(tableName, target);
+            toastShown = true;
+        }
+
         if (elapsed < totalDuration) {
             state.animationFrame = requestAnimationFrame(frame);
             return;
@@ -714,7 +721,10 @@ function animateWalkerToTable(tableElement, tableName) {
         state.animationFrame = null;
         state.activeTable = tableElement;
         tableElement.classList.add("active");
-        showToast(tableName, target);
+        if (!toastShown) {
+            showToast(tableName, target);
+            toastShown = true;
+        }
         elements.mapStatusText.textContent = `${state.activeGuest.name} is seated at Table ${tableName}`;
         elements.mapNextButton.hidden = false;
 

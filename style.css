@@ -1068,7 +1068,7 @@ body {
 
     .hall-map {
         --table-size: clamp(58px, 18.2vw, 74px);
-        min-height: 730px;
+        min-height: 700px;
         padding: 16px 8px 18px;
     }
 
@@ -1077,7 +1077,7 @@ body {
         row-gap: 12px;
         column-gap: 3px;
         padding-top: 4px;
-        padding-bottom: 42px;
+        padding-bottom: 18px;
     }
 
     .table-slot.outer-left,
@@ -1089,7 +1089,7 @@ body {
 
     .aisle {
         top: 136px;
-        bottom: 34px;
+        bottom: 86px;
         width: 30px;
     }
 
@@ -1110,6 +1110,10 @@ body {
         min-height: 34px;
         padding: 0 14px;
         font-size: 0.68rem;
+    }
+
+    .entrance-marker {
+        bottom: 10px;
     }
 
     .table-label {
@@ -1147,16 +1151,13 @@ body {
     }
 
     .map-actions {
-        position: fixed;
-        left: 10px;
-        right: 10px;
-        bottom: calc(env(safe-area-inset-bottom, 0px) + 78px);
-        z-index: 30;
+        position: static;
         justify-content: space-between;
         align-items: center;
         gap: 8px;
-        margin-top: 0;
-        pointer-events: none;
+        margin-top: 12px;
+        margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 34px);
+        padding-inline: 2px;
     }
 
     .minimal-btn-back {
@@ -1167,7 +1168,6 @@ body {
         flex: 0 0 auto;
         justify-content: center;
         min-width: 106px;
-        pointer-events: auto;
     }
 
     .admin-row {
@@ -1269,7 +1269,7 @@ body {
 
     .hall-map {
         --table-size: clamp(52px, 17vw, 66px);
-        min-height: 658px;
+        min-height: 626px;
         padding: 14px 6px 16px;
     }
 
@@ -1283,12 +1283,12 @@ body {
         grid-template-columns: 1fr 1fr 24px 1fr 1fr;
         row-gap: 10px;
         column-gap: 2px;
-        padding-bottom: 28px;
+        padding-bottom: 12px;
     }
 
     .aisle {
         top: 124px;
-        bottom: 24px;
+        bottom: 72px;
         width: 24px;
     }
 
@@ -1301,6 +1301,10 @@ body {
         min-width: 88px;
         min-height: 32px;
         font-size: 0.62rem;
+    }
+
+    .entrance-marker {
+        bottom: 8px;
     }
 
     .table-toast {
@@ -1340,10 +1344,10 @@ body {
     }
 
     .map-actions {
-        left: 8px;
-        right: 8px;
-        bottom: calc(env(safe-area-inset-bottom, 0px) + 88px);
+        margin-top: 10px;
+        margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 42px);
         gap: 6px;
+        padding-inline: 0;
     }
 
     .map-actions .minimal-btn {
