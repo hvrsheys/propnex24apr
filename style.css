@@ -1143,9 +1143,10 @@ body {
     }
 
     .map-actions {
-        justify-content: space-between;
-        gap: 12px;
+        justify-content: center;
+        gap: 10px;
         margin-top: 10px;
+        flex-wrap: wrap;
     }
 
     .minimal-btn-back {
@@ -1153,8 +1154,9 @@ body {
     }
 
     .map-actions .minimal-btn {
-        flex: 1 1 0;
+        flex: 0 1 auto;
         justify-content: center;
+        min-width: 132px;
     }
 
     .admin-row {
@@ -1299,12 +1301,21 @@ body {
     }
 
     .minimal-btn {
-        min-height: 34px;
-        padding: 7px 12px;
-        font-size: 0.68rem;
+        min-height: 30px;
+        padding: 6px 10px;
+        font-size: 0.62rem;
+        gap: 8px;
     }
 
     .map-actions {
-        gap: 10px;
+        gap: 8px;
+    }
+
+    .map-actions .minimal-btn {
+        min-width: 118px;
+    }
+
+    .minimal-btn::after {
+        font-size: 0.82rem;
     }
 }
