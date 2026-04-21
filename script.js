@@ -426,6 +426,25 @@ function revealProgramFlow() {
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+function restoreActiveTableState() {
+    if (!state.activeGuest) {
+        return;
+    }
+
+    const tableElement = getTableElement(state.activeGuest.table);
+    if (!tableElement) {
+        return;
+    }
+
+    clearActiveTable();
+    state.activeTable = tableElement;
+    tableElement.classList.add("active");
+
+    const point = getTargetPoint(tableElement);
+    positionWalker(point);
+    showToast(state.activeGuest.table, point);
+}
+
 function returnToMapView() {
     if (!state.activeGuest) {
         resetView();
@@ -437,6 +456,11 @@ function returnToMapView() {
     elements.mapView.hidden = false;
     elements.mapView.classList.add("active");
     window.scrollTo({ top: 0, behavior: "smooth" });
+    window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+            restoreActiveTableState();
+        });
+    });
 }
 
 function getHallPoint(element) {
@@ -877,19 +901,9 @@ function bindEvents() {
 
         cancelAnimation();
         hideToast();
-        clearActiveTable();
         resetWalkerPosition();
 
-        if (state.activeGuest) {
-            const tableElement = getTableElement(state.activeGuest.table);
-            if (tableElement) {
-                state.activeTable = tableElement;
-                tableElement.classList.add("active");
-                const point = getTargetPoint(tableElement);
-                positionWalker(point);
-                showToast(state.activeGuest.table, point);
-            }
-        }
+        restoreActiveTableState();
     });
 }
 
