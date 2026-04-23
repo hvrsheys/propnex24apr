@@ -1057,7 +1057,7 @@ body {
     }
 }
 
-/* MOBILE SPACING FIX */
+/* FINAL MOBILE ALIGNMENT FIX */
 @media (max-width: 640px) {
     .deco-line {
         display: none;
@@ -1136,12 +1136,12 @@ body {
         --aisle-x: 56.6%;
         --table-size: clamp(45px, 13.4vw, 56px);
         --walker-size: 14px;
-        min-height: 632px;
+        min-height: 590px;
         padding: 16px 8px 18px;
     }
 
     .table-layout-custom {
-        height: 462px;
+        height: 500px;
     }
 
     .aisle {
@@ -1170,7 +1170,7 @@ body {
     }
 
     .entrance-marker {
-        bottom: 18px;
+        bottom: 24px;
     }
 
     .table-label {
@@ -1187,29 +1187,29 @@ body {
         line-height: 1.2;
     }
 
-    .table-layout-custom .table[data-table="4"] { left: 23.4%; top: 13.2%; }
-    .table-layout-custom .table[data-table="3"] { left: 40.8%; top: 13.2%; }
+    .table-layout-custom .table[data-table="4"] { left: 23.4%; top: 16.2%; }
+    .table-layout-custom .table[data-table="3"] { left: 40.8%; top: 16.2%; }
     .table-layout-custom .table[data-table="VIP"] { left: 79%; top: 12.8%; }
 
-    .table-layout-custom .table[data-table="15"] { left: 7%; top: 32.2%; }
-    .table-layout-custom .table[data-table="8"] { left: 23.4%; top: 32.2%; }
-    .table-layout-custom .table[data-table="7"] { left: 40.8%; top: 32.2%; }
+    .table-layout-custom .table[data-table="15"] { left: 7%; top: 36.8%; }
+    .table-layout-custom .table[data-table="8"] { left: 23.4%; top: 36.8%; }
+    .table-layout-custom .table[data-table="7"] { left: 40.8%; top: 36.8%; }
 
-    .table-layout-custom .table[data-table="16"] { left: 7%; top: 52.4%; }
-    .table-layout-custom .table[data-table="12"] { left: 23.4%; top: 52.4%; }
-    .table-layout-custom .table[data-table="11"] { left: 40.8%; top: 52.4%; }
+    .table-layout-custom .table[data-table="16"] { left: 7%; top: 57.4%; }
+    .table-layout-custom .table[data-table="12"] { left: 23.4%; top: 57.4%; }
+    .table-layout-custom .table[data-table="11"] { left: 40.8%; top: 57.4%; }
 
-    .table-layout-custom .table[data-table="14"] { left: 23.4%; top: 72.6%; }
-    .table-layout-custom .table[data-table="13"] { left: 40.8%; top: 72.6%; }
+    .table-layout-custom .table[data-table="14"] { left: 23.4%; top: 78%; }
+    .table-layout-custom .table[data-table="13"] { left: 40.8%; top: 78%; }
 
-    .table-layout-custom .table[data-table="2"] { left: 69.4%; top: 32.2%; }
-    .table-layout-custom .table[data-table="1"] { left: 87.4%; top: 32.2%; }
+    .table-layout-custom .table[data-table="2"] { left: 71.2%; top: 36.8%; }
+    .table-layout-custom .table[data-table="1"] { left: 89.2%; top: 36.8%; }
 
-    .table-layout-custom .table[data-table="6"] { left: 69.4%; top: 52.4%; }
-    .table-layout-custom .table[data-table="5"] { left: 87.4%; top: 52.4%; }
+    .table-layout-custom .table[data-table="6"] { left: 71.2%; top: 57.4%; }
+    .table-layout-custom .table[data-table="5"] { left: 89.2%; top: 57.4%; }
 
-    .table-layout-custom .table[data-table="10"] { left: 69.4%; top: 72.6%; }
-    .table-layout-custom .table[data-table="9"] { left: 87.4%; top: 72.6%; }
+    .table-layout-custom .table[data-table="10"] { left: 71.2%; top: 78%; }
+    .table-layout-custom .table[data-table="9"] { left: 89.2%; top: 78%; }
 
     .selected-card {
         margin-top: 10px;
@@ -1352,7 +1352,7 @@ body {
         --aisle-x: 56.4%;
         --table-size: clamp(40px, 12.6vw, 49px);
         --walker-size: 12px;
-        min-height: 592px;
+        min-height: 540px;
         padding: 14px 6px 16px;
     }
 
@@ -1363,7 +1363,7 @@ body {
     }
 
     .table-layout-custom {
-        height: 430px;
+        height: 454px;
     }
 
     .aisle {
@@ -1388,7 +1388,7 @@ body {
     }
 
     .entrance-marker {
-        bottom: 14px;
+        bottom: 20px;
     }
 
     .table-toast {
@@ -1399,29 +1399,29 @@ body {
         line-height: 1.2;
     }
 
-    .table-layout-custom .table[data-table="4"] { left: 23%; top: 12.7%; }
-    .table-layout-custom .table[data-table="3"] { left: 40.4%; top: 12.7%; }
+    .table-layout-custom .table[data-table="4"] { left: 23%; top: 15.2%; }
+    .table-layout-custom .table[data-table="3"] { left: 40.4%; top: 15.2%; }
     .table-layout-custom .table[data-table="VIP"] { left: 78.6%; top: 12.3%; }
 
-    .table-layout-custom .table[data-table="15"] { left: 6.8%; top: 31.8%; }
-    .table-layout-custom .table[data-table="8"] { left: 23%; top: 31.8%; }
-    .table-layout-custom .table[data-table="7"] { left: 40.4%; top: 31.8%; }
+    .table-layout-custom .table[data-table="15"] { left: 6.8%; top: 35.4%; }
+    .table-layout-custom .table[data-table="8"] { left: 23%; top: 35.4%; }
+    .table-layout-custom .table[data-table="7"] { left: 40.4%; top: 35.4%; }
 
-    .table-layout-custom .table[data-table="16"] { left: 6.8%; top: 51.8%; }
-    .table-layout-custom .table[data-table="12"] { left: 23%; top: 51.8%; }
-    .table-layout-custom .table[data-table="11"] { left: 40.4%; top: 51.8%; }
+    .table-layout-custom .table[data-table="16"] { left: 6.8%; top: 55.6%; }
+    .table-layout-custom .table[data-table="12"] { left: 23%; top: 55.6%; }
+    .table-layout-custom .table[data-table="11"] { left: 40.4%; top: 55.6%; }
 
-    .table-layout-custom .table[data-table="14"] { left: 23%; top: 71.4%; }
-    .table-layout-custom .table[data-table="13"] { left: 40.4%; top: 71.4%; }
+    .table-layout-custom .table[data-table="14"] { left: 23%; top: 75.8%; }
+    .table-layout-custom .table[data-table="13"] { left: 40.4%; top: 75.8%; }
 
-    .table-layout-custom .table[data-table="2"] { left: 69.2%; top: 31.8%; }
-    .table-layout-custom .table[data-table="1"] { left: 87%; top: 31.8%; }
+    .table-layout-custom .table[data-table="2"] { left: 70.9%; top: 35.4%; }
+    .table-layout-custom .table[data-table="1"] { left: 88.9%; top: 35.4%; }
 
-    .table-layout-custom .table[data-table="6"] { left: 69.2%; top: 51.8%; }
-    .table-layout-custom .table[data-table="5"] { left: 87%; top: 51.8%; }
+    .table-layout-custom .table[data-table="6"] { left: 70.9%; top: 55.6%; }
+    .table-layout-custom .table[data-table="5"] { left: 88.9%; top: 55.6%; }
 
-    .table-layout-custom .table[data-table="10"] { left: 69.2%; top: 71.4%; }
-    .table-layout-custom .table[data-table="9"] { left: 87%; top: 71.4%; }
+    .table-layout-custom .table[data-table="10"] { left: 70.9%; top: 75.8%; }
+    .table-layout-custom .table[data-table="9"] { left: 88.9%; top: 75.8%; }
 
     .program-item {
         padding: 8px 10px;
