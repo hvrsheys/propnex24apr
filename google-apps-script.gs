@@ -1,5 +1,14 @@
 const SHEET_NAME = "Attendance";
 const HEADERS = ["Name", "Table", "Attended", "VerifiedAt", "Source"];
+const FORCE_DUPLICATE_NAMES = [
+  "Sia Alvin Wong & Partners",
+  "Thai Advocates",
+  "S.K Ling & Tan Advocates",
+  "NAIM",
+  "Tang & Partners",
+].map(function (name) {
+  return String(name || "").trim().replace(/\s+/g, " ").toLowerCase();
+});
 
 function doGet(e) {
   const params = e && e.parameter ? e.parameter : {};
@@ -60,6 +69,7 @@ function doPost(e) {
 
   const sheet = ensureAttendanceSheet_();
   const rowNumber = findGuestRow_(sheet, guestName);
+  const shouldAppendDuplicate = shouldAppendDuplicate_(guestName);
   const rowValues = [
     String(payload.name || "").trim(),
     String(payload.table || "").trim(),
@@ -68,10 +78,10 @@ function doPost(e) {
     String(payload.source || "seat-finder-web").trim(),
   ];
 
-  if (rowNumber) {
-    sheet.getRange(rowNumber, 1, 1, HEADERS.length).setValues([rowValues]);
-  } else {
+  if (shouldAppendDuplicate || !rowNumber) {
     sheet.appendRow(rowValues);
+  } else {
+    sheet.getRange(rowNumber, 1, 1, HEADERS.length).setValues([rowValues]);
   }
 
   return output_({
@@ -82,6 +92,10 @@ function doPost(e) {
     table: rowValues[1],
     verifiedAt: rowValues[3],
   });
+}
+
+function shouldAppendDuplicate_(guestName) {
+  return FORCE_DUPLICATE_NAMES.indexOf(guestName) >= 0;
 }
 
 function ensureAttendanceSheet_() {
