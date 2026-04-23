@@ -1057,7 +1057,7 @@ body {
     }
 }
 
-/* MOBILE RESPONSIVE FIX */
+/* MOBILE SPACING FIX */
 @media (max-width: 640px) {
     .deco-line {
         display: none;
@@ -1134,29 +1134,29 @@ body {
 
     .hall-map {
         --aisle-x: 56.6%;
-        --table-size: clamp(46px, 13.9vw, 58px);
+        --table-size: clamp(45px, 13.4vw, 56px);
         --walker-size: 14px;
-        min-height: 670px;
+        min-height: 632px;
         padding: 16px 8px 18px;
     }
 
     .table-layout-custom {
-        height: 500px;
+        height: 462px;
     }
 
     .aisle {
-        top: 124px;
-        bottom: 70px;
+        top: 114px;
+        bottom: 56px;
         width: 22px;
     }
 
     .table-main {
-        width: calc(var(--table-size) * 1.1);
+        width: calc(var(--table-size) * 1.09);
     }
 
     .stage {
         width: calc(100% - 10px);
-        margin-bottom: 22px;
+        margin-bottom: 12px;
         padding: 14px 14px;
         font-size: 1rem;
         letter-spacing: 0.1em;
@@ -1170,46 +1170,46 @@ body {
     }
 
     .entrance-marker {
-        bottom: 10px;
+        bottom: 18px;
     }
 
     .table-label {
-        font-size: 0.62rem;
+        font-size: 0.6rem;
         line-height: 1.2;
     }
 
     .table-toast {
-        width: min(164px, calc(100% - 20px));
-        max-width: 164px;
-        padding: 8px 10px;
+        width: min(156px, calc(100% - 20px));
+        max-width: 156px;
+        padding: 7px 9px;
         border-radius: 16px;
-        font-size: 0.72rem;
-        line-height: 1.24;
+        font-size: 0.68rem;
+        line-height: 1.2;
     }
 
-    .table-layout-custom .table[data-table="4"] { left: 24.5%; top: 13.6%; }
-    .table-layout-custom .table[data-table="3"] { left: 39.8%; top: 13.6%; }
-    .table-layout-custom .table[data-table="VIP"] { left: 79.4%; top: 13.2%; }
+    .table-layout-custom .table[data-table="4"] { left: 23.4%; top: 13.2%; }
+    .table-layout-custom .table[data-table="3"] { left: 40.8%; top: 13.2%; }
+    .table-layout-custom .table[data-table="VIP"] { left: 79%; top: 12.8%; }
 
-    .table-layout-custom .table[data-table="15"] { left: 9.2%; top: 35.2%; }
-    .table-layout-custom .table[data-table="8"] { left: 24.5%; top: 35.2%; }
-    .table-layout-custom .table[data-table="7"] { left: 39.8%; top: 35.2%; }
+    .table-layout-custom .table[data-table="15"] { left: 7%; top: 32.2%; }
+    .table-layout-custom .table[data-table="8"] { left: 23.4%; top: 32.2%; }
+    .table-layout-custom .table[data-table="7"] { left: 40.8%; top: 32.2%; }
 
-    .table-layout-custom .table[data-table="16"] { left: 9.2%; top: 57.5%; }
-    .table-layout-custom .table[data-table="12"] { left: 24.5%; top: 57.5%; }
-    .table-layout-custom .table[data-table="11"] { left: 39.8%; top: 57.5%; }
+    .table-layout-custom .table[data-table="16"] { left: 7%; top: 52.4%; }
+    .table-layout-custom .table[data-table="12"] { left: 23.4%; top: 52.4%; }
+    .table-layout-custom .table[data-table="11"] { left: 40.8%; top: 52.4%; }
 
-    .table-layout-custom .table[data-table="14"] { left: 24.5%; top: 79.4%; }
-    .table-layout-custom .table[data-table="13"] { left: 39.8%; top: 79.4%; }
+    .table-layout-custom .table[data-table="14"] { left: 23.4%; top: 72.6%; }
+    .table-layout-custom .table[data-table="13"] { left: 40.8%; top: 72.6%; }
 
-    .table-layout-custom .table[data-table="2"] { left: 71.8%; top: 35.2%; }
-    .table-layout-custom .table[data-table="1"] { left: 86.8%; top: 35.2%; }
+    .table-layout-custom .table[data-table="2"] { left: 69.4%; top: 32.2%; }
+    .table-layout-custom .table[data-table="1"] { left: 87.4%; top: 32.2%; }
 
-    .table-layout-custom .table[data-table="6"] { left: 71.8%; top: 57.5%; }
-    .table-layout-custom .table[data-table="5"] { left: 86.8%; top: 57.5%; }
+    .table-layout-custom .table[data-table="6"] { left: 69.4%; top: 52.4%; }
+    .table-layout-custom .table[data-table="5"] { left: 87.4%; top: 52.4%; }
 
-    .table-layout-custom .table[data-table="10"] { left: 71.8%; top: 79.4%; }
-    .table-layout-custom .table[data-table="9"] { left: 86.8%; top: 79.4%; }
+    .table-layout-custom .table[data-table="10"] { left: 69.4%; top: 72.6%; }
+    .table-layout-custom .table[data-table="9"] { left: 87.4%; top: 72.6%; }
 
     .selected-card {
         margin-top: 10px;
@@ -1350,35 +1350,35 @@ body {
 
     .hall-map {
         --aisle-x: 56.4%;
-        --table-size: clamp(42px, 13.2vw, 52px);
+        --table-size: clamp(40px, 12.6vw, 49px);
         --walker-size: 12px;
-        min-height: 612px;
+        min-height: 592px;
         padding: 14px 6px 16px;
     }
 
     .stage {
-        margin-bottom: 18px;
+        margin-bottom: 10px;
         padding: 12px;
         font-size: 0.9rem;
     }
 
     .table-layout-custom {
-        height: 456px;
+        height: 430px;
     }
 
     .aisle {
-        top: 112px;
-        bottom: 62px;
+        top: 106px;
+        bottom: 50px;
         width: 18px;
     }
 
     .table-main {
-        width: calc(var(--table-size) * 1.08);
+        width: calc(var(--table-size) * 1.07);
     }
 
     .table-label {
         width: 88%;
-        font-size: 0.56rem;
+        font-size: 0.52rem;
     }
 
     .entrance-pill {
@@ -1388,40 +1388,40 @@ body {
     }
 
     .entrance-marker {
-        bottom: 8px;
+        bottom: 14px;
     }
 
     .table-toast {
-        width: min(146px, calc(100% - 16px));
-        max-width: 146px;
-        padding: 7px 8px;
-        font-size: 0.66rem;
+        width: min(132px, calc(100% - 14px));
+        max-width: 132px;
+        padding: 6px 7px;
+        font-size: 0.62rem;
         line-height: 1.2;
     }
 
-    .table-layout-custom .table[data-table="4"] { left: 24.2%; top: 13.5%; }
-    .table-layout-custom .table[data-table="3"] { left: 39.2%; top: 13.5%; }
-    .table-layout-custom .table[data-table="VIP"] { left: 78.8%; top: 13%; }
+    .table-layout-custom .table[data-table="4"] { left: 23%; top: 12.7%; }
+    .table-layout-custom .table[data-table="3"] { left: 40.4%; top: 12.7%; }
+    .table-layout-custom .table[data-table="VIP"] { left: 78.6%; top: 12.3%; }
 
-    .table-layout-custom .table[data-table="15"] { left: 9.2%; top: 35%; }
-    .table-layout-custom .table[data-table="8"] { left: 24.2%; top: 35%; }
-    .table-layout-custom .table[data-table="7"] { left: 39.2%; top: 35%; }
+    .table-layout-custom .table[data-table="15"] { left: 6.8%; top: 31.8%; }
+    .table-layout-custom .table[data-table="8"] { left: 23%; top: 31.8%; }
+    .table-layout-custom .table[data-table="7"] { left: 40.4%; top: 31.8%; }
 
-    .table-layout-custom .table[data-table="16"] { left: 9.2%; top: 57.4%; }
-    .table-layout-custom .table[data-table="12"] { left: 24.2%; top: 57.4%; }
-    .table-layout-custom .table[data-table="11"] { left: 39.2%; top: 57.4%; }
+    .table-layout-custom .table[data-table="16"] { left: 6.8%; top: 51.8%; }
+    .table-layout-custom .table[data-table="12"] { left: 23%; top: 51.8%; }
+    .table-layout-custom .table[data-table="11"] { left: 40.4%; top: 51.8%; }
 
-    .table-layout-custom .table[data-table="14"] { left: 24.2%; top: 79.2%; }
-    .table-layout-custom .table[data-table="13"] { left: 39.2%; top: 79.2%; }
+    .table-layout-custom .table[data-table="14"] { left: 23%; top: 71.4%; }
+    .table-layout-custom .table[data-table="13"] { left: 40.4%; top: 71.4%; }
 
-    .table-layout-custom .table[data-table="2"] { left: 71.6%; top: 35%; }
-    .table-layout-custom .table[data-table="1"] { left: 86.4%; top: 35%; }
+    .table-layout-custom .table[data-table="2"] { left: 69.2%; top: 31.8%; }
+    .table-layout-custom .table[data-table="1"] { left: 87%; top: 31.8%; }
 
-    .table-layout-custom .table[data-table="6"] { left: 71.6%; top: 57.4%; }
-    .table-layout-custom .table[data-table="5"] { left: 86.4%; top: 57.4%; }
+    .table-layout-custom .table[data-table="6"] { left: 69.2%; top: 51.8%; }
+    .table-layout-custom .table[data-table="5"] { left: 87%; top: 51.8%; }
 
-    .table-layout-custom .table[data-table="10"] { left: 71.6%; top: 79.2%; }
-    .table-layout-custom .table[data-table="9"] { left: 86.4%; top: 79.2%; }
+    .table-layout-custom .table[data-table="10"] { left: 69.2%; top: 71.4%; }
+    .table-layout-custom .table[data-table="9"] { left: 87%; top: 71.4%; }
 
     .program-item {
         padding: 8px 10px;
