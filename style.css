@@ -1025,20 +1025,39 @@ body {
 
     .hall-map {
         --aisle-x: 56.8%;
+        --table-size: clamp(70px, 10vw, 84px);
+        --walker-size: 16px;
         min-height: 920px;
     }
 
     .table-layout-custom {
-        height: 700px;
+        height: 670px;
     }
 
     .aisle {
-        top: 152px;
-        bottom: 84px;
-        width: 38px;
+        top: 154px;
+        bottom: 82px;
+        width: 34px;
+    }
+
+    .table-main {
+        width: calc(var(--table-size) * 1.13);
+    }
+
+    .table-label {
+        font-size: 0.76rem;
+    }
+
+    .table-toast {
+        width: min(194px, calc(100% - 28px));
+        max-width: 194px;
+        padding: 10px 12px;
+        font-size: 0.82rem;
+        line-height: 1.3;
     }
 }
 
+/* MOBILE RESPONSIVE FIX */
 @media (max-width: 640px) {
     .deco-line {
         display: none;
@@ -1114,24 +1133,25 @@ body {
     }
 
     .hall-map {
-        --aisle-x: 56.8%;
-        --table-size: clamp(58px, 18.2vw, 74px);
-        min-height: 700px;
+        --aisle-x: 56.6%;
+        --table-size: clamp(46px, 13.9vw, 58px);
+        --walker-size: 14px;
+        min-height: 670px;
         padding: 16px 8px 18px;
     }
 
     .table-layout-custom {
-        height: 520px;
+        height: 500px;
     }
 
     .aisle {
-        top: 126px;
-        bottom: 72px;
-        width: 26px;
+        top: 124px;
+        bottom: 70px;
+        width: 22px;
     }
 
     .table-main {
-        width: calc(var(--table-size) * 1.14);
+        width: calc(var(--table-size) * 1.1);
     }
 
     .stage {
@@ -1143,10 +1163,10 @@ body {
     }
 
     .entrance-pill {
-        min-width: 94px;
-        min-height: 34px;
-        padding: 0 14px;
-        font-size: 0.68rem;
+        min-width: 90px;
+        min-height: 32px;
+        padding: 0 12px;
+        font-size: 0.64rem;
     }
 
     .entrance-marker {
@@ -1154,18 +1174,42 @@ body {
     }
 
     .table-label {
-        font-size: 0.72rem;
+        font-size: 0.62rem;
         line-height: 1.2;
     }
 
     .table-toast {
-        width: min(188px, calc(100% - 24px));
-        max-width: 188px;
-        padding: 10px 12px;
+        width: min(164px, calc(100% - 20px));
+        max-width: 164px;
+        padding: 8px 10px;
         border-radius: 16px;
-        font-size: 0.8rem;
-        line-height: 1.32;
+        font-size: 0.72rem;
+        line-height: 1.24;
     }
+
+    .table-layout-custom .table[data-table="4"] { left: 24.5%; top: 13.6%; }
+    .table-layout-custom .table[data-table="3"] { left: 39.8%; top: 13.6%; }
+    .table-layout-custom .table[data-table="VIP"] { left: 79.4%; top: 13.2%; }
+
+    .table-layout-custom .table[data-table="15"] { left: 9.2%; top: 35.2%; }
+    .table-layout-custom .table[data-table="8"] { left: 24.5%; top: 35.2%; }
+    .table-layout-custom .table[data-table="7"] { left: 39.8%; top: 35.2%; }
+
+    .table-layout-custom .table[data-table="16"] { left: 9.2%; top: 57.5%; }
+    .table-layout-custom .table[data-table="12"] { left: 24.5%; top: 57.5%; }
+    .table-layout-custom .table[data-table="11"] { left: 39.8%; top: 57.5%; }
+
+    .table-layout-custom .table[data-table="14"] { left: 24.5%; top: 79.4%; }
+    .table-layout-custom .table[data-table="13"] { left: 39.8%; top: 79.4%; }
+
+    .table-layout-custom .table[data-table="2"] { left: 71.8%; top: 35.2%; }
+    .table-layout-custom .table[data-table="1"] { left: 86.8%; top: 35.2%; }
+
+    .table-layout-custom .table[data-table="6"] { left: 71.8%; top: 57.5%; }
+    .table-layout-custom .table[data-table="5"] { left: 86.8%; top: 57.5%; }
+
+    .table-layout-custom .table[data-table="10"] { left: 71.8%; top: 79.4%; }
+    .table-layout-custom .table[data-table="9"] { left: 86.8%; top: 79.4%; }
 
     .selected-card {
         margin-top: 10px;
@@ -1305,9 +1349,10 @@ body {
     }
 
     .hall-map {
-        --aisle-x: 56.8%;
-        --table-size: clamp(52px, 17vw, 66px);
-        min-height: 626px;
+        --aisle-x: 56.4%;
+        --table-size: clamp(42px, 13.2vw, 52px);
+        --walker-size: 12px;
+        min-height: 612px;
         padding: 14px 6px 16px;
     }
 
@@ -1318,28 +1363,28 @@ body {
     }
 
     .table-layout-custom {
-        height: 468px;
+        height: 456px;
     }
 
     .aisle {
-        top: 114px;
-        bottom: 64px;
-        width: 22px;
+        top: 112px;
+        bottom: 62px;
+        width: 18px;
     }
 
     .table-main {
-        width: calc(var(--table-size) * 1.12);
+        width: calc(var(--table-size) * 1.08);
     }
 
     .table-label {
         width: 88%;
-        font-size: 0.66rem;
+        font-size: 0.56rem;
     }
 
     .entrance-pill {
-        min-width: 88px;
-        min-height: 32px;
-        font-size: 0.62rem;
+        min-width: 82px;
+        min-height: 30px;
+        font-size: 0.58rem;
     }
 
     .entrance-marker {
@@ -1347,11 +1392,36 @@ body {
     }
 
     .table-toast {
-        width: min(166px, calc(100% - 18px));
-        max-width: 166px;
-        padding: 9px 10px;
-        font-size: 0.76rem;
+        width: min(146px, calc(100% - 16px));
+        max-width: 146px;
+        padding: 7px 8px;
+        font-size: 0.66rem;
+        line-height: 1.2;
     }
+
+    .table-layout-custom .table[data-table="4"] { left: 24.2%; top: 13.5%; }
+    .table-layout-custom .table[data-table="3"] { left: 39.2%; top: 13.5%; }
+    .table-layout-custom .table[data-table="VIP"] { left: 78.8%; top: 13%; }
+
+    .table-layout-custom .table[data-table="15"] { left: 9.2%; top: 35%; }
+    .table-layout-custom .table[data-table="8"] { left: 24.2%; top: 35%; }
+    .table-layout-custom .table[data-table="7"] { left: 39.2%; top: 35%; }
+
+    .table-layout-custom .table[data-table="16"] { left: 9.2%; top: 57.4%; }
+    .table-layout-custom .table[data-table="12"] { left: 24.2%; top: 57.4%; }
+    .table-layout-custom .table[data-table="11"] { left: 39.2%; top: 57.4%; }
+
+    .table-layout-custom .table[data-table="14"] { left: 24.2%; top: 79.2%; }
+    .table-layout-custom .table[data-table="13"] { left: 39.2%; top: 79.2%; }
+
+    .table-layout-custom .table[data-table="2"] { left: 71.6%; top: 35%; }
+    .table-layout-custom .table[data-table="1"] { left: 86.4%; top: 35%; }
+
+    .table-layout-custom .table[data-table="6"] { left: 71.6%; top: 57.4%; }
+    .table-layout-custom .table[data-table="5"] { left: 86.4%; top: 57.4%; }
+
+    .table-layout-custom .table[data-table="10"] { left: 71.6%; top: 79.2%; }
+    .table-layout-custom .table[data-table="9"] { left: 86.4%; top: 79.2%; }
 
     .program-item {
         padding: 8px 10px;
