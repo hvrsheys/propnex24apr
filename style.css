@@ -1388,7 +1388,7 @@ body {
 
     .aisle {
         top: 106px;
-        bottom: 80px;
+        bottom: 83px;
         width: 18px;
     }
 
@@ -1434,7 +1434,7 @@ body {
         --mobile-left-a-x: 6.8%;
         --mobile-left-b-x: 22.8%;
         --mobile-left-c-x: calc(var(--mobile-left-b-x) + var(--mobile-h-gap));
-        --mobile-right-a-x: 68%;
+        --mobile-right-a-x: 73%;
         --mobile-right-b-x: calc(var(--mobile-right-a-x) + var(--mobile-h-gap));
         --mobile-right-center-x: calc((var(--mobile-right-a-x) + var(--mobile-right-b-x)) / 2);
     }
