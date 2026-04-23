@@ -1187,29 +1187,49 @@ body {
         line-height: 1.2;
     }
 
-    .table-layout-custom .table[data-table="4"] { left: 23.4%; top: 15.4%; }
-    .table-layout-custom .table[data-table="3"] { left: 40.8%; top: 15.4%; }
-    .table-layout-custom .table[data-table="VIP"] { left: 81%; top: 12.8%; }
+    /* MOBILE RIGHT-SIDE CENTER + VERTICAL GAP FIX */
+    /* right-side group centering */
+    /* horizontal gap normalization */
+    /* vertical gap normalization */
+    /* vertical 3mm reduction only */
+    .table-layout-custom {
+        --mobile-h-gap: 16.4%;
+        --mobile-v-step: 18.4%;
+        --mobile-top-y: 15%;
+        --mobile-row2-y: calc(var(--mobile-top-y) + var(--mobile-v-step));
+        --mobile-row3-y: calc(var(--mobile-row2-y) + var(--mobile-v-step));
+        --mobile-row4-y: calc(var(--mobile-row3-y) + var(--mobile-v-step));
+        --mobile-left-a-x: 7%;
+        --mobile-left-b-x: 23.4%;
+        --mobile-left-c-x: calc(var(--mobile-left-b-x) + var(--mobile-h-gap));
+        --mobile-right-a-x: 71%;
+        --mobile-right-b-x: calc(var(--mobile-right-a-x) + var(--mobile-h-gap));
+        --mobile-right-center-x: calc((var(--mobile-right-a-x) + var(--mobile-right-b-x)) / 2);
+    }
 
-    .table-layout-custom .table[data-table="15"] { left: 7%; top: 33%; }
-    .table-layout-custom .table[data-table="8"] { left: 23.4%; top: 33%; }
-    .table-layout-custom .table[data-table="7"] { left: 40.8%; top: 33%; }
+    .table-layout-custom .table[data-table="4"] { left: var(--mobile-left-b-x); top: var(--mobile-top-y); }
+    .table-layout-custom .table[data-table="3"] { left: var(--mobile-left-c-x); top: var(--mobile-top-y); }
+    .table-layout-custom .table[data-table="VIP"] { left: var(--mobile-right-center-x); top: 12.8%; }
 
-    .table-layout-custom .table[data-table="16"] { left: 7%; top: 53.6%; }
-    .table-layout-custom .table[data-table="12"] { left: 23.4%; top: 53.6%; }
-    .table-layout-custom .table[data-table="11"] { left: 40.8%; top: 53.6%; }
+    .table-layout-custom .table[data-table="15"] { left: var(--mobile-left-a-x); top: var(--mobile-row2-y); }
+    .table-layout-custom .table[data-table="8"] { left: var(--mobile-left-b-x); top: var(--mobile-row2-y); }
+    .table-layout-custom .table[data-table="7"] { left: var(--mobile-left-c-x); top: var(--mobile-row2-y); }
 
-    .table-layout-custom .table[data-table="14"] { left: 23.4%; top: 72.2%; }
-    .table-layout-custom .table[data-table="13"] { left: 40.8%; top: 72.2%; }
+    .table-layout-custom .table[data-table="16"] { left: var(--mobile-left-a-x); top: var(--mobile-row3-y); }
+    .table-layout-custom .table[data-table="12"] { left: var(--mobile-left-b-x); top: var(--mobile-row3-y); }
+    .table-layout-custom .table[data-table="11"] { left: var(--mobile-left-c-x); top: var(--mobile-row3-y); }
 
-    .table-layout-custom .table[data-table="2"] { left: 72.2%; top: 33%; }
-    .table-layout-custom .table[data-table="1"] { left: 90.2%; top: 33%; }
+    .table-layout-custom .table[data-table="14"] { left: var(--mobile-left-b-x); top: var(--mobile-row4-y); }
+    .table-layout-custom .table[data-table="13"] { left: var(--mobile-left-c-x); top: var(--mobile-row4-y); }
 
-    .table-layout-custom .table[data-table="6"] { left: 72.2%; top: 53.6%; }
-    .table-layout-custom .table[data-table="5"] { left: 90.2%; top: 53.6%; }
+    .table-layout-custom .table[data-table="2"] { left: var(--mobile-right-a-x); top: var(--mobile-row2-y); }
+    .table-layout-custom .table[data-table="1"] { left: var(--mobile-right-b-x); top: var(--mobile-row2-y); }
 
-    .table-layout-custom .table[data-table="10"] { left: 72.2%; top: 72.2%; }
-    .table-layout-custom .table[data-table="9"] { left: 90.2%; top: 72.2%; }
+    .table-layout-custom .table[data-table="6"] { left: var(--mobile-right-a-x); top: var(--mobile-row3-y); }
+    .table-layout-custom .table[data-table="5"] { left: var(--mobile-right-b-x); top: var(--mobile-row3-y); }
+
+    .table-layout-custom .table[data-table="10"] { left: var(--mobile-right-a-x); top: var(--mobile-row4-y); }
+    .table-layout-custom .table[data-table="9"] { left: var(--mobile-right-b-x); top: var(--mobile-row4-y); }
 
     .selected-card {
         margin-top: 10px;
@@ -1399,29 +1419,49 @@ body {
         line-height: 1.2;
     }
 
-    .table-layout-custom .table[data-table="4"] { left: 23%; top: 14.5%; }
-    .table-layout-custom .table[data-table="3"] { left: 40.4%; top: 14.5%; }
-    .table-layout-custom .table[data-table="VIP"] { left: 78.6%; top: 12.3%; }
+    /* MOBILE RIGHT-SIDE CENTER + VERTICAL GAP FIX */
+    /* right-side group centering */
+    /* horizontal gap normalization */
+    /* vertical gap normalization */
+    /* vertical 3mm reduction only */
+    .table-layout-custom {
+        --mobile-h-gap: 16%;
+        --mobile-v-step: 18%;
+        --mobile-top-y: 14.2%;
+        --mobile-row2-y: calc(var(--mobile-top-y) + var(--mobile-v-step));
+        --mobile-row3-y: calc(var(--mobile-row2-y) + var(--mobile-v-step));
+        --mobile-row4-y: calc(var(--mobile-row3-y) + var(--mobile-v-step));
+        --mobile-left-a-x: 6.8%;
+        --mobile-left-b-x: 22.8%;
+        --mobile-left-c-x: calc(var(--mobile-left-b-x) + var(--mobile-h-gap));
+        --mobile-right-a-x: 70.2%;
+        --mobile-right-b-x: calc(var(--mobile-right-a-x) + var(--mobile-h-gap));
+        --mobile-right-center-x: calc((var(--mobile-right-a-x) + var(--mobile-right-b-x)) / 2);
+    }
 
-    .table-layout-custom .table[data-table="15"] { left: 6.8%; top: 34%; }
-    .table-layout-custom .table[data-table="8"] { left: 23%; top: 34%; }
-    .table-layout-custom .table[data-table="7"] { left: 40.4%; top: 34%; }
+    .table-layout-custom .table[data-table="4"] { left: var(--mobile-left-b-x); top: var(--mobile-top-y); }
+    .table-layout-custom .table[data-table="3"] { left: var(--mobile-left-c-x); top: var(--mobile-top-y); }
+    .table-layout-custom .table[data-table="VIP"] { left: var(--mobile-right-center-x); top: 12.3%; }
 
-    .table-layout-custom .table[data-table="16"] { left: 6.8%; top: 52.2%; }
-    .table-layout-custom .table[data-table="12"] { left: 23%; top: 52.2%; }
-    .table-layout-custom .table[data-table="11"] { left: 40.4%; top: 52.2%; }
+    .table-layout-custom .table[data-table="15"] { left: var(--mobile-left-a-x); top: var(--mobile-row2-y); }
+    .table-layout-custom .table[data-table="8"] { left: var(--mobile-left-b-x); top: var(--mobile-row2-y); }
+    .table-layout-custom .table[data-table="7"] { left: var(--mobile-left-c-x); top: var(--mobile-row2-y); }
 
-    .table-layout-custom .table[data-table="14"] { left: 23%; top: 70.4%; }
-    .table-layout-custom .table[data-table="13"] { left: 40.4%; top: 70.4%; }
+    .table-layout-custom .table[data-table="16"] { left: var(--mobile-left-a-x); top: var(--mobile-row3-y); }
+    .table-layout-custom .table[data-table="12"] { left: var(--mobile-left-b-x); top: var(--mobile-row3-y); }
+    .table-layout-custom .table[data-table="11"] { left: var(--mobile-left-c-x); top: var(--mobile-row3-y); }
 
-    .table-layout-custom .table[data-table="2"] { left: 70.9%; top: 34%; }
-    .table-layout-custom .table[data-table="1"] { left: 88.9%; top: 34%; }
+    .table-layout-custom .table[data-table="14"] { left: var(--mobile-left-b-x); top: var(--mobile-row4-y); }
+    .table-layout-custom .table[data-table="13"] { left: var(--mobile-left-c-x); top: var(--mobile-row4-y); }
 
-    .table-layout-custom .table[data-table="6"] { left: 70.9%; top: 52.2%; }
-    .table-layout-custom .table[data-table="5"] { left: 88.9%; top: 52.2%; }
+    .table-layout-custom .table[data-table="2"] { left: var(--mobile-right-a-x); top: var(--mobile-row2-y); }
+    .table-layout-custom .table[data-table="1"] { left: var(--mobile-right-b-x); top: var(--mobile-row2-y); }
 
-    .table-layout-custom .table[data-table="10"] { left: 70.9%; top: 70.4%; }
-    .table-layout-custom .table[data-table="9"] { left: 88.9%; top: 70.4%; }
+    .table-layout-custom .table[data-table="6"] { left: var(--mobile-right-a-x); top: var(--mobile-row3-y); }
+    .table-layout-custom .table[data-table="5"] { left: var(--mobile-right-b-x); top: var(--mobile-row3-y); }
+
+    .table-layout-custom .table[data-table="10"] { left: var(--mobile-right-a-x); top: var(--mobile-row4-y); }
+    .table-layout-custom .table[data-table="9"] { left: var(--mobile-right-b-x); top: var(--mobile-row4-y); }
 
     .program-item {
         padding: 8px 10px;
