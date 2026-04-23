@@ -60,9 +60,13 @@ const state = {
     activeGuest: null,
     activeTable: null,
     animationFrame: null,
+    programPromptTimeout: null,
+    verifyAttendanceToken: 0,
     animationToken: 0,
     lastMatches: [],
     pendingAttendancePrompt: false,
+    attendanceModalGuest: null,
+    attendanceModalContext: null,
     activeGuestAttendance: null,
     activeGuestAttendanceRequest: null
 };
@@ -78,6 +82,12 @@ function escapeHtml(value) {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#39;");
+}
+
+function wait(ms) {
+    return new Promise((resolve) => {
+        window.setTimeout(resolve, ms);
+    });
 }
 
 function cacheElements() {
@@ -98,9 +108,13 @@ function cacheElements() {
     elements.errorText = document.getElementById("errorText");
     elements.programSection = document.getElementById("programSection");
     elements.attendanceModal = document.getElementById("attendanceModal");
+    elements.attendanceTitle = document.getElementById("attendanceTitle");
     elements.attendanceMessage = document.getElementById("attendanceMessage");
     elements.confirmAttendanceButton = document.getElementById("confirmAttendanceButton");
     elements.dismissAttendanceButton = document.getElementById("dismissAttendanceButton");
+    elements.attendanceTitleDefaultText = elements.attendanceTitle.textContent;
+    elements.confirmAttendanceDefaultText = elements.confirmAttendanceButton.textContent;
+    elements.dismissAttendanceDefaultText = elements.dismissAttendanceButton.textContent;
     elements.programBackButton = document.getElementById("programBackButton");
     elements.searchView = document.getElementById("searchView");
     elements.mapView = document.getElementById("mapView");
@@ -165,7 +179,9 @@ function buildAttendanceLookupUrl(guestName, callbackName) {
     return url.toString();
 }
 
-function fetchAttendanceStatusFromEndpoint(guestName) {
+function fetchAttendanceStatusFromEndpoint(guestName, options = {}) {
+    const { timeoutMs = 8000 } = options;
+
     if (!attendanceEndpoint) {
         return Promise.resolve({
             ok: false,
@@ -207,7 +223,7 @@ function fetchAttendanceStatusFromEndpoint(guestName) {
 
             cleanup();
             reject(new Error("Attendance status request timed out."));
-        }, 8000);
+        }, timeoutMs);
     });
 }
 
@@ -219,25 +235,50 @@ async function postAttendanceToEndpoint(payload) {
     const body = JSON.stringify(payload);
 
     try {
+        let dispatched = false;
+
+        // Prefer sendBeacon for a low-latency fire-and-forget write dispatch.
         if (navigator.sendBeacon) {
             const blob = new Blob([body], { type: "text/plain;charset=UTF-8" });
-            const queued = navigator.sendBeacon(attendanceEndpoint, blob);
-            if (queued) {
-                return { ok: true, mode: "remote" };
+            dispatched = navigator.sendBeacon(attendanceEndpoint, blob);
+        }
+
+        if (!dispatched) {
+            await fetch(attendanceEndpoint, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "text/plain;charset=UTF-8"
+                },
+                body,
+                keepalive: true
+            });
+        }
+
+        let latestStatus = null;
+        const confirmationDelays = [0, 250];
+
+        for (let attempt = 0; attempt < confirmationDelays.length; attempt += 1) {
+            if (confirmationDelays[attempt] > 0) {
+                await wait(confirmationDelays[attempt]);
+            }
+
+            const statusPayload = await fetchAttendanceStatusFromEndpoint(payload.name, { timeoutMs: 3000 });
+            latestStatus = {
+                ok: Boolean(statusPayload?.ok),
+                configured: statusPayload?.configured !== false,
+                attended: Boolean(statusPayload?.attended),
+                verifiedAt: statusPayload?.verifiedAt || payload.verifiedAt,
+                table: statusPayload?.table || payload.table
+            };
+
+            if (latestStatus.attended) {
+                setAttendanceCacheEntry(payload.name, latestStatus);
+                return { ok: true, mode: "remote", status: latestStatus };
             }
         }
 
-        await fetch(attendanceEndpoint, {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-                "Content-Type": "text/plain;charset=UTF-8"
-            },
-            body,
-            keepalive: true
-        });
-
-        return { ok: true, mode: "remote" };
+        return { ok: false, reason: "not_persisted", status: latestStatus };
     } catch (error) {
         console.error(error);
         return { ok: false, reason: "network_error", error };
@@ -245,7 +286,7 @@ async function postAttendanceToEndpoint(payload) {
 }
 
 async function getAttendanceStatus(attendee, options = {}) {
-    const { forceRefresh = false } = options;
+    const { forceRefresh = false, timeoutMs = 8000 } = options;
     const cached = getAttendanceCacheEntry(attendee.name);
 
     if (!forceRefresh && cached) {
@@ -253,7 +294,7 @@ async function getAttendanceStatus(attendee, options = {}) {
     }
 
     try {
-        const payload = await fetchAttendanceStatusFromEndpoint(attendee.name);
+        const payload = await fetchAttendanceStatusFromEndpoint(attendee.name, { timeoutMs });
         const entry = {
             ok: Boolean(payload?.ok),
             configured: payload?.configured !== false,
@@ -322,7 +363,6 @@ function renderSuggestions(matches) {
         .map((match) => `
             <button class="suggestion-btn" type="button" data-name="${escapeHtml(match.name)}">
                 <span class="suggestion-name">${escapeHtml(match.name)}</span>
-                <span class="suggestion-table">Table ${escapeHtml(match.table)}</span>
             </button>
         `)
         .join("");
@@ -403,22 +443,122 @@ function hideToast() {
     delete elements.tableToast.dataset.placement;
 }
 
-function hideAttendanceModal() {
-    elements.attendanceModal.hidden = true;
-    state.pendingAttendancePrompt = false;
+function clearProgramFlowPrompt() {
+    if (state.programPromptTimeout) {
+        window.clearTimeout(state.programPromptTimeout);
+        state.programPromptTimeout = null;
+    }
 }
 
-function showAttendanceModal() {
-    if (!state.activeGuest) {
+function scheduleProgramFlowPrompt() {
+    clearProgramFlowPrompt();
+
+    const attendee = state.activeGuest;
+    if (!attendee) {
         return;
     }
 
-    elements.attendanceMessage.textContent = `Please confirm once you are seated at Table ${state.activeGuest.table}.`;
+    state.programPromptTimeout = window.setTimeout(() => {
+        state.programPromptTimeout = null;
+
+        if (!state.activeGuest || state.activeGuest !== attendee) {
+            return;
+        }
+
+        if (elements.mapView.hidden || !elements.programView.hidden || state.pendingAttendancePrompt) {
+            return;
+        }
+
+        showAttendanceModal({
+            attendee,
+            context: "after_walk_delay",
+            title: "Proceed to Program Flow?",
+            message: "You may continue to the Program Flow now.",
+            confirmLabel: "Proceed to Program Flow",
+            dismissLabel: "Stay on Seat Map"
+        });
+    }, 5000);
+}
+
+function hideAttendanceModal() {
+    elements.attendanceModal.hidden = true;
+    state.pendingAttendancePrompt = false;
+    state.attendanceModalGuest = null;
+    state.attendanceModalContext = null;
+    elements.attendanceTitle.textContent = elements.attendanceTitleDefaultText;
+    elements.dismissAttendanceButton.textContent = elements.dismissAttendanceDefaultText;
+    elements.confirmAttendanceButton.disabled = false;
+    elements.confirmAttendanceButton.textContent = elements.confirmAttendanceDefaultText;
+}
+
+function showAttendanceModal(options = {}) {
+    const {
+        attendee = state.activeGuest,
+        context = "before_program",
+        title = elements.attendanceTitleDefaultText,
+        message = "",
+        confirmLabel = elements.confirmAttendanceDefaultText,
+        dismissLabel = elements.dismissAttendanceDefaultText
+    } = options;
+
+    if (!attendee) {
+        return;
+    }
+
+    state.attendanceModalGuest = attendee;
+    state.attendanceModalContext = context;
+    elements.attendanceTitle.textContent = title;
+    elements.attendanceMessage.textContent =
+        message || `Please confirm once you are seated at Table ${attendee.table}.`;
+    elements.confirmAttendanceButton.textContent = confirmLabel;
+    elements.dismissAttendanceButton.textContent = dismissLabel;
     elements.attendanceModal.hidden = false;
     state.pendingAttendancePrompt = true;
 }
 
+function verifyAttendanceBeforeWalk(attendee) {
+    const tableElement = getTableElement(attendee.table);
+    if (!tableElement) {
+        elements.errorText.textContent = "Assigned table could not be found in the hall layout.";
+        return;
+    }
+
+    elements.searchInput.value = attendee.name;
+    elements.suggestions.classList.remove("visible");
+    elements.suggestions.innerHTML = "";
+    elements.errorText.textContent = "";
+    elements.statusText.textContent = "";
+    hideAttendanceModal();
+    const token = ++state.verifyAttendanceToken;
+
+    const cachedStatus = getAttendanceCacheEntry(attendee.name);
+    if (cachedStatus?.attended) {
+        startSelection(attendee);
+        return;
+    }
+
+    (async () => {
+        const status = await getAttendanceStatus(attendee, { forceRefresh: true, timeoutMs: 2500 });
+        if (token !== state.verifyAttendanceToken) {
+            return;
+        }
+
+        if (status.attended) {
+            startSelection(attendee);
+            return;
+        }
+
+        showAttendanceModal({
+            attendee,
+            context: "before_walk",
+            message: `Please verify your attendance before we guide you to Table ${attendee.table}.`,
+            confirmLabel: "Verify & Walk to Table"
+        });
+    })();
+}
+
 function revealProgramFlow() {
+    clearProgramFlowPrompt();
     elements.mapView.hidden = true;
     elements.mapView.classList.remove("active");
     elements.programView.hidden = false;
@@ -514,6 +654,8 @@ function resetWalkerPosition() {
 
 function resetView() {
     cancelAnimation();
+    clearProgramFlowPrompt();
+    state.verifyAttendanceToken += 1;
     clearActiveTable();
     hideToast();
     hideAttendanceModal();
@@ -731,6 +873,8 @@ function animateWalkerToTable(tableElement, tableName) {
         if (state.activeGuestAttendance?.attended) {
             elements.mapStatusText.textContent = `${state.activeGuest.name} is already marked present at Table ${tableName}`;
         }
+
+        scheduleProgramFlowPrompt();
     }
 
     state.animationFrame = requestAnimationFrame(frame);
@@ -747,6 +891,8 @@ function startSelection(attendee) {
     elements.suggestions.classList.remove("visible");
     elements.suggestions.innerHTML = "";
     elements.errorText.textContent = "";
+    elements.statusText.textContent = "";
+    clearProgramFlowPrompt();
     hideAttendanceModal();
 
     setSelectedGuest(attendee);
@@ -760,7 +906,7 @@ function handleSearchSubmit(event) {
     const exactMatch = attendees.find((attendee) => normalizeText(attendee.name) === normalizeText(query));
 
     if (exactMatch) {
-        startSelection(exactMatch);
+        verifyAttendanceBeforeWalk(exactMatch);
         return;
     }
 
@@ -774,7 +920,7 @@ function handleSearchSubmit(event) {
     }
 
     if (matches.length === 1) {
-        startSelection(matches[0]);
+        verifyAttendanceBeforeWalk(matches[0]);
         return;
     }
 
@@ -796,7 +942,7 @@ function bindEvents() {
 
         const attendee = attendees.find((item) => item.name === button.dataset.name);
         if (attendee) {
-            startSelection(attendee);
+            verifyAttendanceBeforeWalk(attendee);
         }
     });
 
@@ -839,6 +985,7 @@ function bindEvents() {
             state.activeGuestAttendance = status;
 
             if (status.attended) {
+                clearProgramFlowPrompt();
                 revealProgramFlow();
                 return;
             }
@@ -853,16 +1000,27 @@ function bindEvents() {
                 return;
             }
 
-            showAttendanceModal();
+            showAttendanceModal({
+                attendee: state.activeGuest,
+                context: "before_program",
+                confirmLabel: elements.confirmAttendanceDefaultText
+            });
         })();
     });
 
     elements.confirmAttendanceButton.addEventListener("click", () => {
-        if (!state.activeGuest) {
+        const attendee = state.attendanceModalGuest || state.activeGuest;
+        if (!attendee) {
             return;
         }
 
-        const attendee = state.activeGuest;
+        const context = state.attendanceModalContext;
+        if (context === "after_walk_delay") {
+            hideAttendanceModal();
+            revealProgramFlow();
+            return;
+        }
+
         const originalButtonText = elements.confirmAttendanceButton.textContent;
         elements.confirmAttendanceButton.disabled = true;
         elements.confirmAttendanceButton.textContent = "Saving...";
@@ -872,21 +1030,42 @@ function bindEvents() {
             const result = await postAttendanceToEndpoint(payload);
             elements.confirmAttendanceButton.disabled = false;
             elements.confirmAttendanceButton.textContent = originalButtonText;
+            const allowLocalVerification = context === "before_walk" && result.reason === "not_configured";
 
-            if (!result.ok) {
-                elements.mapStatusText.textContent = "Unable to verify attendance right now. Please try again.";
+            if (!result.ok && !allowLocalVerification) {
+                const notPersisted = result.reason === "not_persisted";
+                const errorMessage = notPersisted
+                    ? "Attendance was not recorded in Google Sheet yet. Please tap again."
+                    : "Unable to verify attendance right now. Please try again.";
+                elements.attendanceMessage.textContent = errorMessage;
+                if (context === "before_walk") {
+                    elements.errorText.textContent = errorMessage;
+                } else {
+                    elements.mapStatusText.textContent = errorMessage;
+                }
                 return;
             }
 
-            setAttendanceCacheEntry(attendee.name, {
-                ok: true,
-                configured: true,
-                attended: true,
-                verifiedAt: payload.verifiedAt,
-                table: attendee.table
-            });
-            state.activeGuestAttendance = getAttendanceCacheEntry(attendee.name);
+            const confirmedStatus =
+                result.status ||
+                {
+                    ok: result.ok || allowLocalVerification,
+                    configured: result.reason !== "not_configured",
+                    attended: true,
+                    verifiedAt: payload.verifiedAt,
+                    table: attendee.table
+                };
+            setAttendanceCacheEntry(attendee.name, confirmedStatus);
+            if (state.activeGuest === attendee) {
+                state.activeGuestAttendance = getAttendanceCacheEntry(attendee.name);
+            }
             hideAttendanceModal();
+
+            if (context === "before_walk") {
+                startSelection(attendee);
+                return;
+            }
+
             elements.mapStatusText.textContent = `${attendee.name} has been checked in at Table ${attendee.table}`;
             revealProgramFlow();
         })();
