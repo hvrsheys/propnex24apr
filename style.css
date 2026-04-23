@@ -1146,7 +1146,7 @@ body {
 
     .aisle {
         top: 114px;
-        bottom: 72px;
+        bottom: 91px;
         width: 22px;
     }
 
@@ -1170,7 +1170,7 @@ body {
     }
 
     .entrance-marker {
-        bottom: 24px;
+        bottom: 34px;
     }
 
     .table-label {
@@ -1202,7 +1202,7 @@ body {
         --mobile-left-a-x: 7%;
         --mobile-left-b-x: 23.4%;
         --mobile-left-c-x: calc(var(--mobile-left-b-x) + var(--mobile-h-gap));
-        --mobile-right-a-x: 71%;
+        --mobile-right-a-x: 71.9%;
         --mobile-right-b-x: calc(var(--mobile-right-a-x) + var(--mobile-h-gap));
         --mobile-right-center-x: calc((var(--mobile-right-a-x) + var(--mobile-right-b-x)) / 2);
     }
@@ -1388,7 +1388,7 @@ body {
 
     .aisle {
         top: 106px;
-        bottom: 64px;
+        bottom: 83px;
         width: 18px;
     }
 
@@ -1408,7 +1408,7 @@ body {
     }
 
     .entrance-marker {
-        bottom: 20px;
+        bottom: 30px;
     }
 
     .table-toast {
@@ -1434,7 +1434,7 @@ body {
         --mobile-left-a-x: 6.8%;
         --mobile-left-b-x: 22.8%;
         --mobile-left-c-x: calc(var(--mobile-left-b-x) + var(--mobile-h-gap));
-        --mobile-right-a-x: 70.2%;
+        --mobile-right-a-x: 71.1%;
         --mobile-right-b-x: calc(var(--mobile-right-a-x) + var(--mobile-h-gap));
         --mobile-right-center-x: calc((var(--mobile-right-a-x) + var(--mobile-right-b-x)) / 2);
     }
