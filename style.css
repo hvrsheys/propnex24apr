@@ -1189,11 +1189,11 @@ body {
 
     .table-layout-custom .table[data-table="4"] { left: 23.4%; top: 15.4%; }
     .table-layout-custom .table[data-table="3"] { left: 40.8%; top: 15.4%; }
-    .table-layout-custom .table[data-table="VIP"] { left: 79%; top: 12.8%; }
+    .table-layout-custom .table[data-table="VIP"] { left: 81%; top: 12.8%; }
 
-    .table-layout-custom .table[data-table="15"] { left: 7%; top: 35%; }
-    .table-layout-custom .table[data-table="8"] { left: 23.4%; top: 35%; }
-    .table-layout-custom .table[data-table="7"] { left: 40.8%; top: 35%; }
+    .table-layout-custom .table[data-table="15"] { left: 7%; top: 33%; }
+    .table-layout-custom .table[data-table="8"] { left: 23.4%; top: 33%; }
+    .table-layout-custom .table[data-table="7"] { left: 40.8%; top: 33%; }
 
     .table-layout-custom .table[data-table="16"] { left: 7%; top: 53.6%; }
     .table-layout-custom .table[data-table="12"] { left: 23.4%; top: 53.6%; }
@@ -1202,14 +1202,14 @@ body {
     .table-layout-custom .table[data-table="14"] { left: 23.4%; top: 72.2%; }
     .table-layout-custom .table[data-table="13"] { left: 40.8%; top: 72.2%; }
 
-    .table-layout-custom .table[data-table="2"] { left: 71.2%; top: 35%; }
-    .table-layout-custom .table[data-table="1"] { left: 89.2%; top: 35%; }
+    .table-layout-custom .table[data-table="2"] { left: 72.2%; top: 33%; }
+    .table-layout-custom .table[data-table="1"] { left: 90.2%; top: 33%; }
 
-    .table-layout-custom .table[data-table="6"] { left: 71.2%; top: 53.6%; }
-    .table-layout-custom .table[data-table="5"] { left: 89.2%; top: 53.6%; }
+    .table-layout-custom .table[data-table="6"] { left: 72.2%; top: 53.6%; }
+    .table-layout-custom .table[data-table="5"] { left: 90.2%; top: 53.6%; }
 
-    .table-layout-custom .table[data-table="10"] { left: 71.2%; top: 72.2%; }
-    .table-layout-custom .table[data-table="9"] { left: 89.2%; top: 72.2%; }
+    .table-layout-custom .table[data-table="10"] { left: 72.2%; top: 72.2%; }
+    .table-layout-custom .table[data-table="9"] { left: 90.2%; top: 72.2%; }
 
     .selected-card {
         margin-top: 10px;
