@@ -1,56 +1,16 @@
-// Sample seating list for the event hall.
-// The app searches only by attendee name and maps each guest to a table.
-const attendees = [
-    { name: "Peter Ling", table: "1" },
-    { name: "Lai Tze Khan", table: "2" },
-    { name: "Danson Yong", table: "2" },
-    { name: "Jackson Lim", table: "2" },
-    { name: "Pamela Goh", table: "2" },
-    { name: "Susan Wong", table: "2" },
-    { name: "Ellie Tan", table: "2" },
-    { name: "Timothy Voon", table: "2" },
-    { name: "Jaycee Tang", table: "2" },
-    { name: "Ru Ting", table: "2" },
-    { name: "Dick Chiew", table: "2" },
-    { name: "Cherry Lee", table: "3" },
-    { name: "Jonathan Eng", table: "4" },
-    { name: "Roy Hiu", table: "4" },
-    { name: "Winston Gerard", table: "4" },
-    { name: "Brenda Yeo", table: "4" },
-    { name: "Teresa Chai", table: "4" },
-    { name: "Tay Sian Boi", table: "4" },
-    { name: "Eric Lau", table: "4" },
-    { name: "Caroline Then", table: "4" },
-    { name: "Connie Ho", table: "4" },
-    { name: "Jacqueline Poh", table: "4" },
-    { name: "Jimmyy Chin", table: "5" },
-    { name: "Kayne Lau", table: "6" },
-    { name: "Georgena Goh", table: "6" },
-    { name: "Jimmy Tan Tuan Hock", table: "6" },
-    { name: "Nelson Ryberg Lim Hock Wang", table: "6" },
-    { name: "Bernie Eng Shu Jier", table: "6" },
-    { name: "Charmaine Wong Xia Yi", table: "6" },
-    { name: "Lawrence Lee", table: "7" },
-    { name: "Lawrence's wife", table: "7" },
-    { name: "Jensen Liew", table: "7" },
-    { name: "Jordan Ajeng", table: "7" },
-    { name: "Mr Tan Teck Meng", table: "8" },
-    { name: "Andy Vong", table: "8" },
-    { name: "Esther Lim", table: "8" },
-    { name: "Colin Chai", table: "8" },
-    { name: "Brodon Tan", table: "8" },
-    { name: "Mdm Grace Kiu", table: "8" },
-    { name: "Ms Tan Pei Yi", table: "8" },
-    { name: "Ms Sandra Liew", table: "8" },
-    { name: "Ms Mok Siao Dan", table: "8" },
-    { name: "Mr Wong Chan Siew", table: "8" },
-    { name: "Sia Alvin Wong & Partners", table: "9" },
-    { name: "Shirley Yeo", table: "VIP" },
-    { name: "Brandon Wong", table: "VIP" },
-    { name: "Debbie Goh", table: "VIP" },
-    { name: "Wong San San", table: "VIP" },
-    { name: "Dylan Tan", table: "VIP" }
-];
+// The app loads attendee names and tables from CSV on startup.
+const attendeeCsvPath = "propnex24aprseat.csv";
+let attendees = [];
+
+const forceAttendancePopupNames = new Set(
+    [
+        "Sia Alvin Wong & Partners",
+        "Thai Advocates",
+        "S.K Ling & Tan Advocates",
+        "NAIM",
+        "Tang & Partners"
+    ].map((name) => normalizeText(name))
+);
 
 const elements = {};
 let attendanceEndpoint = "";
@@ -61,7 +21,6 @@ const state = {
     activeTable: null,
     animationFrame: null,
     programPromptTimeout: null,
-    verifyAttendanceToken: 0,
     animationToken: 0,
     lastMatches: [],
     pendingAttendancePrompt: false,
@@ -84,16 +43,101 @@ function escapeHtml(value) {
         .replace(/'/g, "&#39;");
 }
 
-function wait(ms) {
-    return new Promise((resolve) => {
-        window.setTimeout(resolve, ms);
-    });
+function shouldForceAttendancePopup(guestName) {
+    return forceAttendancePopupNames.has(normalizeText(guestName));
+}
+
+function normalizeTableName(value) {
+    const table = String(value || "").trim();
+    if (!table) {
+        return "";
+    }
+
+    return normalizeText(table) === "main" ? "VIP" : table;
+}
+
+function parseCsvLine(line) {
+    const cells = [];
+    let current = "";
+    let inQuotes = false;
+
+    for (let index = 0; index < line.length; index += 1) {
+        const char = line[index];
+
+        if (char === '"') {
+            if (inQuotes && line[index + 1] === '"') {
+                current += '"';
+                index += 1;
+            } else {
+                inQuotes = !inQuotes;
+            }
+            continue;
+        }
+
+        if (char === "," && !inQuotes) {
+            cells.push(current.trim());
+            current = "";
+            continue;
+        }
+
+        current += char;
+    }
+
+    cells.push(current.trim());
+    return cells;
+}
+
+function parseAttendeesCsv(csvText) {
+    const lines = String(csvText || "")
+        .replace(/^\uFEFF/, "")
+        .split(/\r?\n/);
+
+    if (lines.length === 0) {
+        return [];
+    }
+
+    const headerCells = parseCsvLine(lines[0]).map((cell) => normalizeText(cell));
+    const tableIndex = headerCells.findIndex((cell) => cell === "table no" || cell === "table");
+    const nameIndex = headerCells.findIndex((cell) => cell === "name");
+    const resolvedTableIndex = tableIndex >= 0 ? tableIndex : 0;
+    const resolvedNameIndex = nameIndex >= 0 ? nameIndex : 1;
+
+    const parsed = [];
+    for (let lineIndex = 1; lineIndex < lines.length; lineIndex += 1) {
+        const row = parseCsvLine(lines[lineIndex]);
+        const name = String(row[resolvedNameIndex] || "").trim();
+        const table = normalizeTableName(row[resolvedTableIndex]);
+
+        if (!name || !table) {
+            continue;
+        }
+
+        parsed.push({ name, table });
+    }
+
+    return parsed;
+}
+
+async function loadAttendeesFromCsv() {
+    const response = await fetch(attendeeCsvPath, { cache: "no-store" });
+    if (!response.ok) {
+        throw new Error(`Unable to load attendee CSV (${response.status}).`);
+    }
+
+    const csvText = await response.text();
+    const parsed = parseAttendeesCsv(csvText);
+    if (parsed.length === 0) {
+        throw new Error("Attendee CSV is empty or invalid.");
+    }
+
+    attendees = parsed;
 }
 
 function cacheElements() {
     attendanceEndpoint = document.body.dataset.attendanceEndpoint || "";
     elements.searchForm = document.getElementById("searchForm");
     elements.searchInput = document.getElementById("searchInput");
+    elements.searchSubmitButton = elements.searchForm.querySelector('button[type="submit"]');
     elements.suggestions = document.getElementById("suggestions");
     elements.guestPanel = document.getElementById("guestPanel");
     elements.guestPanelToggle = document.getElementById("guestPanelToggle");
@@ -127,6 +171,11 @@ function cacheElements() {
     elements.walker = document.getElementById("walker");
     elements.tableToast = document.getElementById("tableToast");
     elements.tables = Array.from(document.querySelectorAll(".table"));
+}
+
+function setSearchLoadingState(loading) {
+    elements.searchInput.disabled = loading;
+    elements.searchSubmitButton.disabled = loading;
 }
 
 function isCompactMapLayout() {
@@ -179,9 +228,7 @@ function buildAttendanceLookupUrl(guestName, callbackName) {
     return url.toString();
 }
 
-function fetchAttendanceStatusFromEndpoint(guestName, options = {}) {
-    const { timeoutMs = 8000 } = options;
-
+function fetchAttendanceStatusFromEndpoint(guestName) {
     if (!attendanceEndpoint) {
         return Promise.resolve({
             ok: false,
@@ -223,7 +270,7 @@ function fetchAttendanceStatusFromEndpoint(guestName, options = {}) {
 
             cleanup();
             reject(new Error("Attendance status request timed out."));
-        }, timeoutMs);
+        }, 8000);
     });
 }
 
@@ -235,50 +282,25 @@ async function postAttendanceToEndpoint(payload) {
     const body = JSON.stringify(payload);
 
     try {
-        let dispatched = false;
-
-        // Prefer sendBeacon for a low-latency fire-and-forget write dispatch.
         if (navigator.sendBeacon) {
             const blob = new Blob([body], { type: "text/plain;charset=UTF-8" });
-            dispatched = navigator.sendBeacon(attendanceEndpoint, blob);
-        }
-
-        if (!dispatched) {
-            await fetch(attendanceEndpoint, {
-                method: "POST",
-                mode: "no-cors",
-                headers: {
-                    "Content-Type": "text/plain;charset=UTF-8"
-                },
-                body,
-                keepalive: true
-            });
-        }
-
-        let latestStatus = null;
-        const confirmationDelays = [0, 250];
-
-        for (let attempt = 0; attempt < confirmationDelays.length; attempt += 1) {
-            if (confirmationDelays[attempt] > 0) {
-                await wait(confirmationDelays[attempt]);
-            }
-
-            const statusPayload = await fetchAttendanceStatusFromEndpoint(payload.name, { timeoutMs: 3000 });
-            latestStatus = {
-                ok: Boolean(statusPayload?.ok),
-                configured: statusPayload?.configured !== false,
-                attended: Boolean(statusPayload?.attended),
-                verifiedAt: statusPayload?.verifiedAt || payload.verifiedAt,
-                table: statusPayload?.table || payload.table
-            };
-
-            if (latestStatus.attended) {
-                setAttendanceCacheEntry(payload.name, latestStatus);
-                return { ok: true, mode: "remote", status: latestStatus };
+            const queued = navigator.sendBeacon(attendanceEndpoint, blob);
+            if (queued) {
+                return { ok: true, mode: "remote" };
             }
         }
 
-        return { ok: false, reason: "not_persisted", status: latestStatus };
+        await fetch(attendanceEndpoint, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "text/plain;charset=UTF-8"
+            },
+            body,
+            keepalive: true
+        });
+
+        return { ok: true, mode: "remote" };
     } catch (error) {
         console.error(error);
         return { ok: false, reason: "network_error", error };
@@ -286,7 +308,7 @@ async function postAttendanceToEndpoint(payload) {
 }
 
 async function getAttendanceStatus(attendee, options = {}) {
-    const { forceRefresh = false, timeoutMs = 8000 } = options;
+    const { forceRefresh = false } = options;
     const cached = getAttendanceCacheEntry(attendee.name);
 
     if (!forceRefresh && cached) {
@@ -294,7 +316,7 @@ async function getAttendanceStatus(attendee, options = {}) {
     }
 
     try {
-        const payload = await fetchAttendanceStatusFromEndpoint(attendee.name, { timeoutMs });
+        const payload = await fetchAttendanceStatusFromEndpoint(attendee.name);
         const entry = {
             ok: Boolean(payload?.ok),
             configured: payload?.configured !== false,
@@ -529,32 +551,20 @@ function verifyAttendanceBeforeWalk(attendee) {
     elements.errorText.textContent = "";
     elements.statusText.textContent = "";
     hideAttendanceModal();
-    const token = ++state.verifyAttendanceToken;
-
+    const forceAttendancePrompt = shouldForceAttendancePopup(attendee.name);
     const cachedStatus = getAttendanceCacheEntry(attendee.name);
-    if (cachedStatus?.attended) {
+
+    if (!forceAttendancePrompt && cachedStatus?.attended) {
         startSelection(attendee);
         return;
     }
 
-    (async () => {
-        const status = await getAttendanceStatus(attendee, { forceRefresh: true, timeoutMs: 2500 });
-        if (token !== state.verifyAttendanceToken) {
-            return;
-        }
-
-        if (status.attended) {
-            startSelection(attendee);
-            return;
-        }
-
-        showAttendanceModal({
-            attendee,
-            context: "before_walk",
-            message: `Please verify your attendance before we guide you to Table ${attendee.table}.`,
-            confirmLabel: "Verify & Walk to Table"
-        });
-    })();
+    showAttendanceModal({
+        attendee,
+        context: "before_walk",
+        message: `Please verify your attendance before we guide you to Table ${attendee.table}.`,
+        confirmLabel: "Verify & Walk to Table"
+    });
 }
 
 function revealProgramFlow() {
@@ -655,7 +665,6 @@ function resetWalkerPosition() {
 function resetView() {
     cancelAnimation();
     clearProgramFlowPrompt();
-    state.verifyAttendanceToken += 1;
     clearActiveTable();
     hideToast();
     hideAttendanceModal();
@@ -1033,10 +1042,7 @@ function bindEvents() {
             const allowLocalVerification = context === "before_walk" && result.reason === "not_configured";
 
             if (!result.ok && !allowLocalVerification) {
-                const notPersisted = result.reason === "not_persisted";
-                const errorMessage = notPersisted
-                    ? "Attendance was not recorded in Google Sheet yet. Please tap again."
-                    : "Unable to verify attendance right now. Please try again.";
+                const errorMessage = "Unable to verify attendance right now. Please try again.";
                 elements.attendanceMessage.textContent = errorMessage;
                 if (context === "before_walk") {
                     elements.errorText.textContent = errorMessage;
@@ -1046,16 +1052,13 @@ function bindEvents() {
                 return;
             }
 
-            const confirmedStatus =
-                result.status ||
-                {
-                    ok: result.ok || allowLocalVerification,
-                    configured: result.reason !== "not_configured",
-                    attended: true,
-                    verifiedAt: payload.verifiedAt,
-                    table: attendee.table
-                };
-            setAttendanceCacheEntry(attendee.name, confirmedStatus);
+            setAttendanceCacheEntry(attendee.name, {
+                ok: result.ok || allowLocalVerification,
+                configured: result.reason !== "not_configured",
+                attended: true,
+                verifiedAt: payload.verifiedAt,
+                table: attendee.table
+            });
             if (state.activeGuest === attendee) {
                 state.activeGuestAttendance = getAttendanceCacheEntry(attendee.name);
             }
@@ -1096,7 +1099,7 @@ function bindEvents() {
     });
 }
 
-function init() {
+async function init() {
     cacheElements();
     bindEvents();
     initCandlelight();
@@ -1109,7 +1112,23 @@ function init() {
     elements.programView.classList.remove("active");
     elements.attendanceModal.hidden = true;
     elements.mapStatusText.textContent = "";
-    elements.statusText.textContent = "";
+    elements.errorText.textContent = "";
+    elements.statusText.textContent = "Loading attendee list...";
+    setSearchLoadingState(true);
+    let csvLoaded = false;
+
+    try {
+        await loadAttendeesFromCsv();
+        elements.statusText.textContent = "";
+        csvLoaded = true;
+    } catch (error) {
+        console.error(error);
+        elements.statusText.textContent = "";
+        elements.errorText.textContent = "Unable to load seat list from CSV. Please refresh and try again.";
+    }
+
+    setSearchLoadingState(!csvLoaded);
+
     syncGuestPanelLayout();
 }
 

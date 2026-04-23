@@ -1,125 +1,141 @@
-﻿Table no.,Name
-1,Peter Ling
-1,Pamela
-1,Kenneth
-1,Yamaha Yong
-1,Laura
-1,Hugh Teo
-1,Andrew Liew
-1,Victor Liew
-1,Diana or Tiong zyong
-1,Ricky
+﻿Table No,Name
+1,Sia Alvin Wong & Partners
 ,
 2,Lai Tze Khan
-2,Danson Yong
+2,Debbie Goh
 2,Jackson Lim
 2,Jenny
-2,Susan Wong
-2,Ellie Tan
-2,Timothy Voon
-2,Jaycee Tang
+2,Susan
+2,Ellie
+2,Timothy
+2,Jaycee
 2,Ru Ting
-2,Dick Chiew
+2,Felycia
 ,
-3,Cherry Lee
-3,Bong Gek Hioh
-3,Lee Kek Fung
-3,Tiffany Ngu
-3,Disney Ngu
+3,Jonathan Eng
+3,Roy Hiu
+3,Winston Gerard
+3,Brenda Yeo
+3,Teresa Chai
+3,Tay Sian Boi
+3,Eric Lau
+3,Caroline Then
+3,Connie Ho
+3,Jacqueline Poh
 ,
-4,Jonathan Eng
-4,Roy Hiu
-4,Winston Gerard
-4,Brenda Yeo
-4,Teresa Chai
-4,Tay Sian Boi
-4,Eric Lau
-4,Caroline Then
-4,Connie Ho
-4,Jacqueline Poh
+4,Pamela
+4,Kenneth
+4,Yamaha Yong
+4,Laura
+4,Hugh Teo
+4,Andrew Liew
+4,Victor Liew
+4,Diana or Tiong Zyong
+4,Ricky
 ,
-5,Jimmyy Chin
-5,Chin Chuk
-5,Chai Foong Moi
-5,Chin Jun Sin
-5,Chin Lin Chieng
-5,Chai Swee Kiong
-5,Chai Chong Ching
-5,Bong Chee Frong
-5,Yap Jia Hui
+5,Thai Advocates
 ,
-6,Kayne Lau
-6,Georgena Goh
-6,Jimmy Tan Tuan Hock
-6,Nelson Ryberg Lim Hock Wang
-6,Bernie Eng Shu Jier
-6,Charmaine Wong Xia Yi
-6,Jordan
-6,Jong Boon Kien
-6,Jackson Hii
+6,Christie Tie
+6,Brandon Tan
+6,Andre Tan
+6,Eric Tan
+6,Tan Morney
+6,Synge Chia
+6,Dickson Yong
+6,Mandy Siaw
+6,Alvin Chua
+6,Jing Jing
 ,
-7,Lawrence Lee
-7,Lawrence's wife
-7,Jensen Liew
-7,Jordan Ajeng
-7,Jackie Lai
-7,Lily Lai
-7,Jackie's parents (2)
+7,S.K Ling & Tan Advocates
 ,
-8,Mr Tan Teck Meng
-8,Andy Vong
-8,Esther Lim
-8,Colin Chai
-8,Brodon Tan
-8,Mdm Grace Kiu
-8,Ms Tan Pei Yi
-8,Ms Sandra Liew
-8,Ms Mok Siao Dan
-8,Mr Wong Chan Siew
+8,Chin Chuk
+8,Chai Foong Moi
+8,Chin Jun Sin
+8,Chin Lin Chieng
+8,Chai Swee Kiong
+8,Chai Chong Ching
+8,Bong Chee Frong
+8,Yap Jia Hui
 ,
-9,Sia Alvin Wong & Partners (10)
+9,Benny Wong
+9,Delon Chiam
+9,Vivian Chung
+9,Charles Wong
+9,Lawrence Lee
+9,Lawrence Wife
+9,Jordan Ajeng
+9,Jensen Liew
+9,Clement Toh
 ,
-10,S.K Ling & Tan Advocates (10)
+10,Mary Boon
+10,Lim Ai Lee
+10,Casilda Lee
+10,Voon Sin Lan
+10,Joanne Ng
+10,Lily Lai
+10,Kuan Zi Yue
+10,Valerie Chai
+10,Jackie's parent (2)
 ,
-11,Benny Wong
-11,Delon Chiam
-11,Vivian Chung
-11,Charles Wong
+11,Mr. Tan Teck Meng
+11,Andy Vong
+11,Esther Lim
+11,Colin Chai
+11,Brodon Tan
+11,Mdm Grace Kiu
+11,Ms Tan Pei Yi
+11,Ms Sandra Liew
+11,Ms Mok Siao Dan
+11,Mr Wong Chan Siew
 ,
-12,Christie Tie
-12,Brandon Tan
-12,Andre Tan
-12,Eric Tan
-12,Tan Morney
-12,Synge Chia
-12,Dickson Yong
-12,Mandy Siaw
-12,Alvin Chua
-12,Jing Jing
+12,Cherry Lee
+12,Bong Gek Hioh
+12,Lee Kek Fung
+12,Tiffany Ngu
+12,Disney Ngu
+12,Shirley Loo
+12,Zoey Phiong
+12,Lee Horng Ruey
+12,Andy Lee
+12,Bilian Ang
 ,
-13,Thai Advocates (10)
+13,NAIM
 ,
-14,Chai Sin Tze
-14,Henry Chong Phang
-14,Preston Chong Phang
-14,Hayden Chong Phang
-14,Voon Shan Mei
-14,Chai Chung Min
-14,Chai Shih Ching
-14,Jon Pau
-14,Nathan Pau
-14,Jordan Pau
+14,Kayne Lau
+14,Georgena Goh
+14,Jimmy Tan Tuan Hock
+14,Nelson Ryberg Lim Hock Wang
+14,Bernie Eng Shu Jier
+14,Charmaine Wong Xia Yi
+14,Jordan
+14,Jong Boon Kien
+14,Dicky Chew
 ,
-15,Lorna Chong Phang
-15,Kent Foo
-15,Jill Tay
-15,Chai Chong Hung
-15,Elson Chai
+15,Chai Sin Tze
+15,Henry Chong Phang
+15,Preston Chong Phang
+15,Hayden Chong Phang
+15,Voon Shan Mei
+15,Chai Chung Min
+15,Chai Shih Ching
+15,Jon Pau
+15,Nathan Pau
+15,Jordan Pau
 ,
-16,Naim Holdings Sdn Bhd (10)
+16,Jill Tay
+16,Chai Chong Hung
+16,Elson Chai
+16,Tang & Partners
+16,Ian Ng
+16,Brandon Wong
 ,
-VIP,Shirley Yeo
-VIP,Brandon Wong
-VIP,Debbie Goh
-VIP,Wong San San
-VIP,Dylan Tan
+MAIN,Shirley Yeo
+MAIN,Shirley's mother
+MAIN,Jackie Lai
+MAIN,Wong San San
+MAIN,Dylan Tan
+MAIN,Jackson Hii
+MAIN,Peter Ling
+MAIN,Costa Lai
+MAIN,Jimmy Chin
+MAIN,Danson Yong
