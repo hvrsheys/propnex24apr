@@ -1146,7 +1146,7 @@ body {
 
     .aisle {
         top: 114px;
-        bottom: 56px;
+        bottom: 72px;
         width: 22px;
     }
 
@@ -1187,29 +1187,29 @@ body {
         line-height: 1.2;
     }
 
-    .table-layout-custom .table[data-table="4"] { left: 23.4%; top: 16.2%; }
-    .table-layout-custom .table[data-table="3"] { left: 40.8%; top: 16.2%; }
+    .table-layout-custom .table[data-table="4"] { left: 23.4%; top: 15.4%; }
+    .table-layout-custom .table[data-table="3"] { left: 40.8%; top: 15.4%; }
     .table-layout-custom .table[data-table="VIP"] { left: 79%; top: 12.8%; }
 
-    .table-layout-custom .table[data-table="15"] { left: 7%; top: 36.8%; }
-    .table-layout-custom .table[data-table="8"] { left: 23.4%; top: 36.8%; }
-    .table-layout-custom .table[data-table="7"] { left: 40.8%; top: 36.8%; }
+    .table-layout-custom .table[data-table="15"] { left: 7%; top: 35%; }
+    .table-layout-custom .table[data-table="8"] { left: 23.4%; top: 35%; }
+    .table-layout-custom .table[data-table="7"] { left: 40.8%; top: 35%; }
 
-    .table-layout-custom .table[data-table="16"] { left: 7%; top: 57.4%; }
-    .table-layout-custom .table[data-table="12"] { left: 23.4%; top: 57.4%; }
-    .table-layout-custom .table[data-table="11"] { left: 40.8%; top: 57.4%; }
+    .table-layout-custom .table[data-table="16"] { left: 7%; top: 53.6%; }
+    .table-layout-custom .table[data-table="12"] { left: 23.4%; top: 53.6%; }
+    .table-layout-custom .table[data-table="11"] { left: 40.8%; top: 53.6%; }
 
-    .table-layout-custom .table[data-table="14"] { left: 23.4%; top: 78%; }
-    .table-layout-custom .table[data-table="13"] { left: 40.8%; top: 78%; }
+    .table-layout-custom .table[data-table="14"] { left: 23.4%; top: 72.2%; }
+    .table-layout-custom .table[data-table="13"] { left: 40.8%; top: 72.2%; }
 
-    .table-layout-custom .table[data-table="2"] { left: 71.2%; top: 36.8%; }
-    .table-layout-custom .table[data-table="1"] { left: 89.2%; top: 36.8%; }
+    .table-layout-custom .table[data-table="2"] { left: 71.2%; top: 35%; }
+    .table-layout-custom .table[data-table="1"] { left: 89.2%; top: 35%; }
 
-    .table-layout-custom .table[data-table="6"] { left: 71.2%; top: 57.4%; }
-    .table-layout-custom .table[data-table="5"] { left: 89.2%; top: 57.4%; }
+    .table-layout-custom .table[data-table="6"] { left: 71.2%; top: 53.6%; }
+    .table-layout-custom .table[data-table="5"] { left: 89.2%; top: 53.6%; }
 
-    .table-layout-custom .table[data-table="10"] { left: 71.2%; top: 78%; }
-    .table-layout-custom .table[data-table="9"] { left: 89.2%; top: 78%; }
+    .table-layout-custom .table[data-table="10"] { left: 71.2%; top: 72.2%; }
+    .table-layout-custom .table[data-table="9"] { left: 89.2%; top: 72.2%; }
 
     .selected-card {
         margin-top: 10px;
@@ -1368,7 +1368,7 @@ body {
 
     .aisle {
         top: 106px;
-        bottom: 50px;
+        bottom: 64px;
         width: 18px;
     }
 
@@ -1399,29 +1399,29 @@ body {
         line-height: 1.2;
     }
 
-    .table-layout-custom .table[data-table="4"] { left: 23%; top: 15.2%; }
-    .table-layout-custom .table[data-table="3"] { left: 40.4%; top: 15.2%; }
+    .table-layout-custom .table[data-table="4"] { left: 23%; top: 14.5%; }
+    .table-layout-custom .table[data-table="3"] { left: 40.4%; top: 14.5%; }
     .table-layout-custom .table[data-table="VIP"] { left: 78.6%; top: 12.3%; }
 
-    .table-layout-custom .table[data-table="15"] { left: 6.8%; top: 35.4%; }
-    .table-layout-custom .table[data-table="8"] { left: 23%; top: 35.4%; }
-    .table-layout-custom .table[data-table="7"] { left: 40.4%; top: 35.4%; }
+    .table-layout-custom .table[data-table="15"] { left: 6.8%; top: 34%; }
+    .table-layout-custom .table[data-table="8"] { left: 23%; top: 34%; }
+    .table-layout-custom .table[data-table="7"] { left: 40.4%; top: 34%; }
 
-    .table-layout-custom .table[data-table="16"] { left: 6.8%; top: 55.6%; }
-    .table-layout-custom .table[data-table="12"] { left: 23%; top: 55.6%; }
-    .table-layout-custom .table[data-table="11"] { left: 40.4%; top: 55.6%; }
+    .table-layout-custom .table[data-table="16"] { left: 6.8%; top: 52.2%; }
+    .table-layout-custom .table[data-table="12"] { left: 23%; top: 52.2%; }
+    .table-layout-custom .table[data-table="11"] { left: 40.4%; top: 52.2%; }
 
-    .table-layout-custom .table[data-table="14"] { left: 23%; top: 75.8%; }
-    .table-layout-custom .table[data-table="13"] { left: 40.4%; top: 75.8%; }
+    .table-layout-custom .table[data-table="14"] { left: 23%; top: 70.4%; }
+    .table-layout-custom .table[data-table="13"] { left: 40.4%; top: 70.4%; }
 
-    .table-layout-custom .table[data-table="2"] { left: 70.9%; top: 35.4%; }
-    .table-layout-custom .table[data-table="1"] { left: 88.9%; top: 35.4%; }
+    .table-layout-custom .table[data-table="2"] { left: 70.9%; top: 34%; }
+    .table-layout-custom .table[data-table="1"] { left: 88.9%; top: 34%; }
 
-    .table-layout-custom .table[data-table="6"] { left: 70.9%; top: 55.6%; }
-    .table-layout-custom .table[data-table="5"] { left: 88.9%; top: 55.6%; }
+    .table-layout-custom .table[data-table="6"] { left: 70.9%; top: 52.2%; }
+    .table-layout-custom .table[data-table="5"] { left: 88.9%; top: 52.2%; }
 
-    .table-layout-custom .table[data-table="10"] { left: 70.9%; top: 75.8%; }
-    .table-layout-custom .table[data-table="9"] { left: 88.9%; top: 75.8%; }
+    .table-layout-custom .table[data-table="10"] { left: 70.9%; top: 70.4%; }
+    .table-layout-custom .table[data-table="9"] { left: 88.9%; top: 70.4%; }
 
     .program-item {
         padding: 8px 10px;
