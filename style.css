@@ -552,6 +552,9 @@ body {
 /* table 14 */
 .table-layout-custom .table[data-table="14"] { left: 25.5%; top: 80.2%; }
 
+/* table 17 */
+.table-layout-custom .table[data-table="17"] { left: 10%; top: 80.2%; }
+
 /* table 13 */
 .table-layout-custom .table[data-table="13"] { left: 41%; top: 80.2%; }
 
@@ -1220,6 +1223,7 @@ body {
     .table-layout-custom .table[data-table="11"] { left: var(--mobile-left-c-x); top: var(--mobile-row3-y); }
 
     .table-layout-custom .table[data-table="14"] { left: var(--mobile-left-b-x); top: var(--mobile-row4-y); }
+    .table-layout-custom .table[data-table="17"] { left: var(--mobile-left-a-x); top: var(--mobile-row4-y); }
     .table-layout-custom .table[data-table="13"] { left: var(--mobile-left-c-x); top: var(--mobile-row4-y); }
 
     .table-layout-custom .table[data-table="2"] { left: var(--mobile-right-a-x); top: var(--mobile-row2-y); }
@@ -1452,6 +1456,7 @@ body {
     .table-layout-custom .table[data-table="11"] { left: var(--mobile-left-c-x); top: var(--mobile-row3-y); }
 
     .table-layout-custom .table[data-table="14"] { left: var(--mobile-left-b-x); top: var(--mobile-row4-y); }
+    .table-layout-custom .table[data-table="17"] { left: var(--mobile-left-a-x); top: var(--mobile-row4-y); }
     .table-layout-custom .table[data-table="13"] { left: var(--mobile-left-c-x); top: var(--mobile-row4-y); }
 
     .table-layout-custom .table[data-table="2"] { left: var(--mobile-right-a-x); top: var(--mobile-row2-y); }
